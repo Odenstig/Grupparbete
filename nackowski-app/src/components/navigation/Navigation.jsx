@@ -1,9 +1,9 @@
 import { LinkContainer } from 'react-router-bootstrap';
-import { Nav,Navbar } from "react-bootstrap";
+import { Nav, Navbar } from "react-bootstrap";
 
-const Navigation = () =>{
+const Navigation = () => {
 
-    return(<>
+    return (<>
         {/* <nav>
             <ul>
                 <li><NavLink to="/">Hem</NavLink></li>
@@ -13,15 +13,19 @@ const Navigation = () =>{
         </nav> */}
 
         <Navbar bg="light" expand="1g">
+            <LinkContainer to="/">
                 <Navbar.Brand href="#home">Home</Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="mr-auto">
-                        <LinkContainer to="/create"><Nav.Link>CreateAuction</Nav.Link></LinkContainer>
-                    </Nav>
-                </Navbar.Collapse>
+
+            </LinkContainer>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+                <Nav className="mr-auto">
+                    <LinkContainer to="/"><Nav.Link>Home</Nav.Link></LinkContainer>
+                    <LinkContainer to="/create"><Nav.Link>CreateAuction</Nav.Link></LinkContainer>
+                </Nav>
+            </Navbar.Collapse>
         </Navbar>
-    
+
     </>);
 
 };
