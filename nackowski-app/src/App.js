@@ -1,11 +1,10 @@
-import logo from './logo.svg';
 import './App.css';
 
 function App() {
   return (
-    <p>Hejsan lala</p>
+    <p></p>
     
   );
-}
+};
 
 export default App;
