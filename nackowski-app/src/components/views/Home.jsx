@@ -1,10 +1,11 @@
 
-import React from 'react'
+import React from 'react';
+import AuctionContainer from '../../containers/AuctionContainer';
 
 const Home = () => {
   return (
-    <div>Home</div>
-  )
-}
+    <AuctionContainer/>
+  );
+};
 
 export default Home
