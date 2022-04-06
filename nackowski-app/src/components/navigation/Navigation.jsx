@@ -4,7 +4,7 @@ import { Nav, Navbar } from "react-bootstrap";
 const Navigation = () => {
 
     let burger = {
-        margin: "0 10px 0 10px",
+        margin: "0 20px 0 20px",
     }
     let nackowski = {
         margin: "0 10px 0 20px",
