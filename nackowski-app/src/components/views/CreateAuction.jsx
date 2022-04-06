@@ -1,6 +1,6 @@
 
 import React, { useRef } from 'react'
-import { Button } from 'react-bootstrap'
+import { Button, Container } from 'react-bootstrap'
 import Form from 'react-bootstrap/Form'
 
 const CreateAuction = () => {
@@ -15,31 +15,35 @@ const CreateAuction = () => {
 
 
   return (
-    <Form >
+    <Container className="justify-content-md-center">
 
-      <Form.Label>Titel</Form.Label>
-      <Form.Control placeholder='Titel' ref={title} />
-      <br />
+      <Form>
 
-      <Form.Label>Beskrivning</Form.Label>
-      <Form.Control as="textarea" placeholder='Beskrivning' rows={4} ref={description} />
-      <br />
+        <Form.Label>Titel</Form.Label>
+        <Form.Control placeholder='Titel' ref={title} size="lg" />
+        <br />
 
-      <Form.Label>Pris</Form.Label>
-      <Form.Control placeholder='Pris' ref={price} />
-      <br />
+        <Form.Label>Beskrivning</Form.Label>
+        <Form.Control as="textarea" placeholder='Beskrivning' rows={4} ref={description} />
+        <br />
 
-      <Form.Label>Skapare</Form.Label>
-      <Form.Control placeholder='Skapare' ref={name} />
-      <br />
+        <Form.Label>Pris</Form.Label>
+        <Form.Control placeholder='Pris' ref={price} />
+        <br />
 
-      <Form.Label>Slutdatum</Form.Label>
-      <Form.Control type="date" placeholder='Slutdatum' ref={endDate} />
-      <br />
+        <Form.Label>Skapare</Form.Label>
+        <Form.Control placeholder='Skapare' ref={name} />
+        <br />
 
-      <Button type='submit'>Skapa auktion</Button>
+        <Form.Label>Slutdatum</Form.Label>
+        <Form.Control type="date" placeholder='Slutdatum' ref={endDate} />
+        <br />
 
-    </Form>
+        <Button type='submit'>Skapa auktion</Button>
+
+      </Form>
+
+    </Container>
   );
 };
 
