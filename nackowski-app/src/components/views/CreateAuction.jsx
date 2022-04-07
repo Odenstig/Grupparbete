@@ -69,7 +69,7 @@ const CreateAuction = () => {
         <Form.Control type="date" placeholder='Slutdatum' ref={endDate} />
         <br />
 
-        <Button onClick={postAuction}>Skapa auktion</Button>
+        <Button onClick={postAuction} className='btn btn-dark'>Skapa auktion</Button>
 
       </Form>
 

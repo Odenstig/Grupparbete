@@ -32,7 +32,7 @@ const AuctionList = ({ list }) => {
                     <Card.Text>{auction.SkapadAv}<span style={right}>{auction.Utropspris}</span></Card.Text>
                 </Card.Footer>
 
-                <Button >Mer</Button>
+                <Button className='btn btn-dark'>Mer</Button>
             </Card>
             </div>
         );
