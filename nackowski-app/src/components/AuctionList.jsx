@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Card, Carousel, Modal } from 'react-bootstrap';
+import { Button, Card, Carousel, Modal, ModalBody } from 'react-bootstrap';
 import dayjs from 'dayjs';
 
 const AuctionList = ({ list }) => {
@@ -7,7 +7,31 @@ const AuctionList = ({ list }) => {
         float: "right"
     };
 
+    const [show, setShow] = useState(false);
+    const [auction, setAuction] = useState({});
+    const [bids, setBids] = useState();
+    const [bidList, setList] = useState()
+
+    const closeModal = () => {
+        setShow(false);
+    }
     const handleClick = (auction) => {
+        setAuction(auction);
+        setShow(true);
+
+        let url = "http://nackowskis.azurewebsites.net/api/bud/2400/" + auction.AuktionID;
+
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                let list = data.map(bid => {
+                    return (<li>{bid.Budgivare}</li>)
+                })
+                setBids(list);
+            });
+
+
+
 
     }
 
@@ -19,13 +43,12 @@ const AuctionList = ({ list }) => {
         float: "left"
     }
     list = list.sort((a, b) => {
-        console.log(a, b)
         return (dayjs(b.SlutDatum).isAfter(dayjs(a.SlutDatum)) ? 1 : -1);
     })
     let auctionList = list.map(auction => {
         let endDate = dayjs(auction.SlutDatum).format("YYYY-MM-DD HH:mm")
         return (
-            <div Class="container-md-2">
+            <div className="container-md-2" >
 
                 <Card style={card}>
                     <Card.Header>
@@ -41,13 +64,26 @@ const AuctionList = ({ list }) => {
                     <Button className='btn btn-dark' onClick={() => handleClick(auction)} >Mer</Button>
                 </Card>
 
-            </div>
+            </div >
         );
     });
 
 
     return (
-        <div>{auctionList}</div>
+        <div>
+            {auctionList}
+            <Modal show={show} onHide={closeModal}>
+                <Modal.Header closeButton>
+                    {auction.Titel}
+                </Modal.Header>
+                <ModalBody>
+                    {auction.Beskrivning}
+                    <ul>
+                        {bids}
+                    </ul>
+                </ModalBody>
+            </Modal>
+        </div>
     );
 };
 
