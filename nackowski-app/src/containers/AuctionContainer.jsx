@@ -15,7 +15,7 @@ const AuctionContainer = () => {
                 console.log(data)
                 setAuctionList(data);
             })
-    });
+    },[]);
 
     const search = (searchparam) => {
         // let url ="https://swapi.dev/api/people/?search=" + searchparam;
