@@ -9,8 +9,9 @@ const AuctionList = ({ list }) => {
     };
 
     let card = {
-        height: "300px",
-        width: "20%",
+        height: "30%",
+        minHeight: "300px",
+        width: "18rem",
         margin: "20px",
         float: "left"
     }
@@ -18,6 +19,8 @@ const AuctionList = ({ list }) => {
     let auctionList = list.map(auction => {
         let endDate = dayjs(auction.SlutDatum).format("YYYY-MM-DD HH:mm")
         return (
+            <div Class="container-md-2">
+
             <Card style={card}>
                 <Card.Header>
                     <Card.Title>{auction.Titel}<span style={right}>{endDate}</span> </Card.Title>
@@ -29,8 +32,9 @@ const AuctionList = ({ list }) => {
                     <Card.Text>{auction.SkapadAv}<span style={right}>{auction.Utropspris}</span></Card.Text>
                 </Card.Footer>
 
-                <Button>Mer</Button>
+                <Button >Mer</Button>
             </Card>
+            </div>
         );
     });
     return (
