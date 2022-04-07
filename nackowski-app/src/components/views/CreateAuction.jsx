@@ -3,6 +3,7 @@ import React, { useRef } from 'react'
 import { Button, Container } from 'react-bootstrap'
 import Form from 'react-bootstrap/Form'
 import { useNavigate } from 'react-router-dom';
+import './styles/FormStyle.css';
 
 const CreateAuction = () => {
   const title = useRef();
@@ -46,11 +47,11 @@ const CreateAuction = () => {
 
 
   return (
-    <Container className="justify-content-md-center">
+    <Container className='formContainer'>
       <Form id="form">
 
         <Form.Label>Titel</Form.Label>
-        <Form.Control placeholder='Titel' ref={title} size="lg" />
+        <Form.Control placeholder='Titel' ref={title} />
         <br />
 
         <Form.Label>Beskrivning</Form.Label>
@@ -69,7 +70,7 @@ const CreateAuction = () => {
         <Form.Control type="date" placeholder='Slutdatum' ref={endDate} />
         <br />
 
-        <Button onClick={postAuction} className='btn btn-dark'>Skapa auktion</Button>
+        <Button onClick={postAuction} className='btn btn-dark float-end'>Skapa auktion</Button>
 
       </Form>
 
