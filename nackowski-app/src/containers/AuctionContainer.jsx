@@ -45,6 +45,7 @@ const AuctionContainer = () => {
         <>
             <Search callback={search} />
             <AuctionList list={auctionList} />
+            <AuctionList list ={auctionItem} />
         </>
     );
 };
