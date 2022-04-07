@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Card, Carousel } from 'react-bootstrap';
+import { Button, Card} from 'react-bootstrap';
 import dayjs from 'dayjs';
 
 const AuctionList = ({ list }) => {
@@ -16,20 +16,28 @@ const AuctionList = ({ list }) => {
         float: "left"
     }
 
+    let currrentDate = dayjs();
+    let aktiv = "Inaktiv";
     let auctionList = list.map(auction => {
-        let endDate = dayjs(auction.SlutDatum).format("YYYY-MM-DD HH:mm")
+
+        let endDate = dayjs(auction.SlutDatum);
+        if (currrentDate < endDate) {
+                aktiv = "Aktiv"
+        }
         return (
-            <div Class="container-md-2">
+            <div className="container-md-2">
 
             <Card style={card}>
                 <Card.Header>
-                    <Card.Title>{auction.Titel}<span style={right}>{endDate}</span> </Card.Title>
+                    <Card.Title>{auction.Titel}<span style={right}>{endDate.format("YYYY-MM-DD HH:mm")}</span> </Card.Title>
                 </Card.Header>
                 <Card.Body>
                     <Card.Text>{auction.Beskrivning}</Card.Text>
+                    <Card.Text>{auction.Utropspris}:-</Card.Text>
+
                 </Card.Body>
                 <Card.Footer>
-                    <Card.Text>{auction.SkapadAv}<span style={right}>{auction.Utropspris}</span></Card.Text>
+                    <Card.Text>{auction.SkapadAv}<span style={right}>{aktiv}</span></Card.Text>
                 </Card.Footer>
 
                 <Button >Mer</Button>
@@ -38,7 +46,7 @@ const AuctionList = ({ list }) => {
         );
     });
     return (
-        <div>{auctionList}</div>
+        <div>{auctionList.reverse()}</div>
     );
 };
 

@@ -6,16 +6,16 @@ const Search = ({callback}) => {
         margin: "20px"
     }
     let text = {
-        "border-radius": "5px",
-        "margin-right": "5px",
+        borderRadius: "5px",
+        marginRight: "5px",
         padding: "2px 0 2px 4px"
     }
     let button = {
-        "margin-left": "-12px",
-        "margin-top": "-5px",
-        "padding": "4px 10px",
+        marginLeft: "-12px",
+        marginTop: "-5px",
+        padding: "4px 10px",
         color: "white",
-        "border-style": "none",
+        borderStyle: "none"
     }
 
     const searchVal = useRef();
