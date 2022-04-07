@@ -17,15 +17,22 @@ const AuctionContainer = () => {
             })
     },[]);
 
+    const[auctionItem, setAuctionItem] = useState({Title:""});
+
     const search = (searchparam) => {
-        // let url ="https://swapi.dev/api/people/?search=" + searchparam;
 
-        // fetch(url)
-        // .then(response=>response.json())
-        // .then(data=>{
 
-        //     setAuctionList(data);
-        // });
+        let url = "http://nackowskis.azurewebsites.net/api/Auktion/2400" + searchparam;
+
+        fetch(url)
+        .then(response => response.json())
+        .then(data => {
+
+            const{title} = data;
+            let item = {Title: title};
+            setAuctionItem(item);
+        });
+
     };
 
     const getDetails = (id) => {
