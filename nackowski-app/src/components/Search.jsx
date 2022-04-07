@@ -1,5 +1,5 @@
 import {useState, useRef} from 'react';
-import Auctionlist from './AuctionList';
+import AuctionItem from './AuctionList';
 
 const Search = ({callback}) => {
 
@@ -20,13 +20,29 @@ const Search = ({callback}) => {
     }
 
     const searchVal = useRef();
-    const[auctionItem, setAuctionItem] = useState({})
+    const[auctionItem, setAuctionItem] = useState({Title:""});
+
+    const getAuktionItem = () => {
+
+        let id = searchVal.current.value;
+        let url = "http://nackowskis.azurewebsites.net/api/Auktion/2400" + id;
+
+        fetch(url)
+        .then(response => response.json())
+        .then(data => {
+
+            const{title} = data;
+            let item = {Title: title};
+            setAuctionItem(item);
+        });
+    };
 
 
     return(
         <div style={searchBox}>
             <input type="text" ref={searchVal} style={text} placeholder="Sök.."/>
-            <button style={button} className="btn btn-dark" onClick = {() => {callback(searchVal.current.value)}}>Sök</button>
+            <button style={button} className="btn btn-dark" onClick = {getAuktionItem}>Sök</button>
+            <AuctionItem callback = {auctionItem} />
         </div>);
 };
 
