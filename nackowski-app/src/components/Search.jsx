@@ -1,4 +1,5 @@
-import {useRef} from 'react';
+import {useState, useRef} from 'react';
+import Auctionlist from './AuctionList';
 
 const Search = ({callback}) => {
 
@@ -19,6 +20,8 @@ const Search = ({callback}) => {
     }
 
     const searchVal = useRef();
+    const[auctionItem, setAuctionItem] = useState({})
+
 
     return(
         <div style={searchBox}>
