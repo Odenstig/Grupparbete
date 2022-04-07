@@ -8,7 +8,7 @@ const BidList = ({list}) => {
             
             
             return (
-                <li>{bid.Summa}</li>
+                <li>{bid.Summa} - {bid.Budgivare}</li>
                 );
             });
             return (

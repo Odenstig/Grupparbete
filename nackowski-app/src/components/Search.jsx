@@ -6,16 +6,16 @@ const Search = ({callback}) => {
         margin: "20px"
     }
     let text = {
-        borderRadius: "5px",
-        marginRight: "5px",
+        "border-radius": "5px",
+        "margin-right": "5px",
         padding: "2px 0 2px 4px"
     }
     let button = {
-        marginLeft: "-12px",
-        marginTop: "-5px",
-        padding: "4px 10px",
+        "margin-left": "-16px",
+        "margin-top": "-2px",
+        "padding": "4px 10px",
         color: "white",
-        borderStyle: "none"
+        "border-style": "none",
     }
 
     const searchVal = useRef();
@@ -23,7 +23,7 @@ const Search = ({callback}) => {
     return(
         <div style={searchBox}>
             <input type="text" ref={searchVal} style={text} placeholder="Sök.."/>
-            <button style={button} className="btn btn-primary" onClick = {() => {callback(searchVal.current.value)}}>Sök</button>
+            <button style={button} className="btn btn-dark" onClick = {() => {callback(searchVal.current.value)}}>Sök</button>
         </div>);
 };
 
