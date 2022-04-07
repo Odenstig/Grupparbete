@@ -28,6 +28,12 @@ const AuctionContainer = () => {
         // });
     };
 
+    const getDetails=(id)=>{
+
+        let url = "http://nackowskis.azurewebsites.net/api/bud/2400/"+id;
+
+    }
+
   return (
       <>
       <Search callback = {search}/>
