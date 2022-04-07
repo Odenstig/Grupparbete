@@ -1,5 +1,4 @@
-import {useState, useRef} from 'react';
-import AuctionItem from './AuctionList';
+import {useRef} from 'react';
 
 const Search = ({callback}) => {
 
@@ -19,30 +18,32 @@ const Search = ({callback}) => {
         "border-style": "none",
     }
 
+    //kommenterat över skräp nedan
+
+    // const searchVal = useRef();
+    // const[auctionItem, setAuctionItem] = useState({Title:""});
+
+    // const getAuktionItem = () => {
+
+    //     let id = searchVal.current.value;
+    //     let url = 
+
+    //     fetch(url)
+    //     .then(response => response.json())
+    //     .then(data => {
+
+    //         const{title} = data;
+    //         let item = {Title: title};
+    //         setAuctionItem(item);
+    //     });
+    // };
+
     const searchVal = useRef();
-    const[auctionItem, setAuctionItem] = useState({Title:""});
-
-    const getAuktionItem = () => {
-
-        let id = searchVal.current.value;
-        let url = "http://nackowskis.azurewebsites.net/api/Auktion/2400" + id;
-
-        fetch(url)
-        .then(response => response.json())
-        .then(data => {
-
-            const{title} = data;
-            let item = {Title: title};
-            setAuctionItem(item);
-        });
-    };
-
 
     return(
         <div style={searchBox}>
             <input type="text" ref={searchVal} style={text} placeholder="Sök.."/>
-            <button style={button} className="btn btn-dark" onClick = {getAuktionItem}>Sök</button>
-            <AuctionItem callback = {auctionItem} />
+            <button style={button} className="btn btn-dark" onClick ={ () => callback(searchVal.current.value)}>Sök</button>
         </div>);
 };
 
