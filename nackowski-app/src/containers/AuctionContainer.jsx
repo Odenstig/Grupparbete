@@ -33,7 +33,6 @@ const AuctionContainer = () => {
             setAuctionItem(item);
         });
 
-
     };
 
     const getDetails = (id) => {
