@@ -11,8 +11,8 @@ const Search = ({callback}) => {
         padding: "2px 0 2px 4px"
     }
     let button = {
-        "margin-left": "-12px",
-        "margin-top": "-5px",
+        "margin-left": "-16px",
+        "margin-top": "-2px",
         "padding": "4px 10px",
         color: "white",
         "border-style": "none",
