@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Card, Carousel, Modal, ModalBody } from 'react-bootstrap';
 import dayjs from 'dayjs';
+import './views/styles/ListStyle.css';
 
 const AuctionList = ({ list }) => {
     let right = {
@@ -25,9 +26,9 @@ const AuctionList = ({ list }) => {
             .then(response => response.json())
             .then(data => {
                 let list = data.map(bid => {
-                    return (<li>{bid.Budgivare}</li>)
+                    return (<li>{bid.Budgivare} - {bid.Summa}</li>)
                 })
-                setBids(list);
+                setBids(list.reverse());
             });
 
 
