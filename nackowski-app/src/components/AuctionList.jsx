@@ -52,6 +52,15 @@ const AuctionList = ({ list }) => {
     };
     const removeAuction = (auction) => {
 
+        let budUrl = "http://nackowskis.azurewebsites.net/api/bud/2400/" + auction.AuktionID;
+        fetch(budUrl)
+        .then(res=>res.json())
+        .then(data => {
+            if (data.length) {
+                alert("Det går inte att ta bort auktioner med bud.")
+            };
+        });
+
         let url = "http://nackowskis.azurewebsites.net/api/Auktion/2400/" + auction.AuktionID;
 
         fetch(url,{
@@ -64,11 +73,25 @@ const AuctionList = ({ list }) => {
             }).then(function (data) {
             console.log('Request success: ', 'posten borttagen');
            })
-        .then(forceUpdate());
     };    
-    
+    const updateAuction = (auction) => {
+
+        let url = "http://nackowskis.azurewebsites.net/api/Auktion/2400/" + auction.AuktionID;
+
+        fetch(url,{
+            method: 'PUT',
+            body: JSON.stringify(auction),
+            headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+            }
+            }).then(function (data) {
+            console.log('Request success: ', 'posten borttagen');
+           })
+        .then(forceUpdate());
+    };  
     const addBid = () => {
-        if (bidSum.current.value <= bids[0].Summa || bidSum.current.value < auction.Utropspris) {
+        if ( (bids.length > 0 && bidSum.current.value <= bids[0].Summa) || (bidSum.current.value < auction.Utropspris)) {
             alert("Du kan inte bjuda under nuvarande bud")
             return;
         };
@@ -128,15 +151,12 @@ const AuctionList = ({ list }) => {
                     <Card.Footer>
                         <Card.Text>{auction.SkapadAv}<span style={right}>{auction.aktiv}</span></Card.Text>
                     </Card.Footer>
-
+                    <div>
                     <Button className='btn btn-dark' onClick={() => handleClick(auction)} >Detaljer</Button>
-                    {aktiv==="Aktiv" && <Button className='btn btn-dark' onClick={() => removeAuction(auction)} >Ta bort</Button>}
-                    {aktiv==="Aktiv" && <Button className='btn btn-dark' onClick={() => removeAuction(auction)} >Uppdatera</Button>}
-
-                    
-
+                    {auction.aktiv==="Aktiv" && <Button className='btn btn-dark' onClick={() => removeAuction(auction)} >Ta bort</Button>}
+                    {auction.aktiv==="Aktiv" && <Button className='btn btn-dark' onClick={() => updateAuction(auction)} >Uppdatera</Button>}
+                    </div>
                 </Card>
-
             </div >
         );
     });
