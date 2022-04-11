@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Button, Card, FormControl, FormGroup, Modal, ModalBody, ModalFooter, Row, Col } from 'react-bootstrap';
+import { Button, Card, FormControl, FormGroup, Modal, ModalBody, ModalFooter, Row, Col, Form } from 'react-bootstrap';
 import dayjs from 'dayjs';
 import './views/styles/ListStyle.css';
 
@@ -7,16 +7,17 @@ const AuctionList = ({ list }) => {
 
     const [show, setShow] = useState(false);
     const [auction, setAuction] = useState({});
-    const [bids, setBids] = useState();
+    const [bidsLi, setBidsLi] = useState([]);
+    const [bids, setBids] = useState([]);
     const bidName = useRef();
     const bidSum = useRef();
-    const[highbid, setHighBid] = useState([]);
+    const [highbid, setHighBid] = useState([]);
 
     let right = {
         float: "right"
     };
     let mid = {
-        textAlign:"center",
+        textAlign: "center",
         alignSelf: "center",
         alignItems: "center"
     }
@@ -26,7 +27,7 @@ const AuctionList = ({ list }) => {
         width: "24rem",
         margin: "20px",
         float: "left"
-    };    
+    };
 
     const closeModal = () => {
         setShow(false);
@@ -40,14 +41,18 @@ const AuctionList = ({ list }) => {
         fetch(url)
             .then(response => response.json())
             .then(data => {
-                console.log(data)
+                setBids(data.reverse());
                 let list = data.map(bid => {
                     return (<li>{bid.Budgivare} - {bid.Summa}kr</li>)
                 })
-                setBids(list.reverse());
+                setBidsLi(list);
             });
     };
     const addBid = () => {
+        if (bidSum.current.value <= bidsLi[0] || bidSum.current.value < auction.Utropspris) {
+            alert("Du kan inte bjuda under nuvarande bud")
+            return;
+        }
         let url = "http://nackowskis.azurewebsites.net/api/bud/2400";
         let bid = {
             "Summa": bidSum.current.value,
@@ -70,22 +75,22 @@ const AuctionList = ({ list }) => {
             .catch(err => console.log(err));
     }
 
-       
+
 
     list = list.sort((a, b) => {
         return (dayjs(b.SlutDatum).isAfter(dayjs(a.SlutDatum)) ? 1 : -1);
     });
 
     let auctionList = list.map(auction => {
-        
+
         let endDate = dayjs(auction.SlutDatum).format("YYYY-MM-DD HH:mm")
         let slutDatum = dayjs(auction.SlutDatum).format("YYYY-MM-DD HH:mm");
         let currentDate = dayjs().format("YYYY-MM-DD HH:mm");;
         let aktiv = "Aktiv";
 
-        if (currentDate > slutDatum ) {
+        if (currentDate > slutDatum) {
             aktiv = "Inaktiv";
-        };          
+        };
 
         return (
             <div className="container-md-2" >
@@ -97,7 +102,7 @@ const AuctionList = ({ list }) => {
                     </Card.Header>
                     <Card.Body>
                         <div className='card-price'>
-                        <Card.Text >Utropspris:   {auction.Utropspris}:-</Card.Text>
+                            <Card.Text >Utropspris:   {auction.Utropspris}:-</Card.Text>
                         </div>
                         <Card.Text style={mid} >{auction.Beskrivning}</Card.Text>
                     </Card.Body>
@@ -111,15 +116,24 @@ const AuctionList = ({ list }) => {
             </div >
         );
     });
-    
+
     return (
         <div>
             {auctionList}
             <Modal show={show} onHide={closeModal} size="lg">
                 <Modal.Header closeButton>
-                    <h3>
-                        {auction.Titel}
-                    </h3>
+                    <Row className="justify-content-between">
+                        <Col md={9}>
+                            <h3>
+                                {auction.Titel}
+                            </h3>
+                        </Col>
+                        <Col md={3}>
+                            {bids.length > 0 ? <h3>{bids[0].Summa}kr</h3> : <h3>{auction.Utropspris}kr</h3>}
+                        </Col>
+                    </Row>
+
+
                 </Modal.Header>
                 <ModalBody>
                     <Row>
@@ -128,7 +142,7 @@ const AuctionList = ({ list }) => {
                         </Col>
                         <Col>
                             <ul>
-                                {bids}
+                                {bidsLi}
                             </ul>
                         </Col>
                     </Row>
@@ -138,11 +152,11 @@ const AuctionList = ({ list }) => {
                     <FormGroup>
                         <Row>
                             <Col>
-                                <FormControl type="text" placeholder="Namn" ref={bidName} autoFocus />
+                                <FormControl type="text" placeholder="Namn" ref={bidName} autoFocus required />
 
                             </Col>
                             <Col>
-                                <FormControl type="text" placeholder="Pris" ref={bidSum} />
+                                <FormControl type="text" placeholder="Pris" ref={bidSum} required />
                             </Col>
                             <Col>
                                 <Button className='btn btn-dark' onClick={addBid}>Lägg Bud</Button>
@@ -152,7 +166,8 @@ const AuctionList = ({ list }) => {
                     </FormGroup>
                 </ModalFooter>
             </Modal>
-        </div>
+
+        </div >
     );
 };
 
