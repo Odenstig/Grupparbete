@@ -1,11 +1,10 @@
 import React, { useState, useRef } from 'react';
-import { Button, Card, FormControl, FormGroup, Modal, ModalBody, ModalFooter, Row, Col } from 'react-bootstrap';
 import dayjs from 'dayjs';
 import './views/styles/ListStyle.css';
 import Auction from './Auction';
 import DetailModal from './DetailModal';
 
-const AuctionList = ({ list }) => {
+const AuctionList = ({ list, setRequestData }) => {
 
     const [show, setShow] = useState(false);
     const [auction, setAuction] = useState({});
@@ -13,11 +12,6 @@ const AuctionList = ({ list }) => {
     const [bids, setBids] = useState([]);
     const bidName = useRef();
     const bidSum = useRef();
-    const [, updateState] = React.useState();
-    const forceUpdate = React.useCallback(() => updateState({}), []);
-
-
-
 
     const closeModal = () => {
         setShow(false);
@@ -47,7 +41,9 @@ const AuctionList = ({ list }) => {
                 if (data.length) {
                     alert("Det går inte att ta bort auktioner med bud.")
                 };
-            });
+            })
+            .then(() => setRequestData(dayjs()));
+        ;
 
         let url = "http://nackowskis.azurewebsites.net/api/Auktion/2400/" + auction.AuktionID;
 
@@ -76,7 +72,7 @@ const AuctionList = ({ list }) => {
         }).then(function (data) {
             console.log('Request success: ', 'posten borttagen');
         })
-            .then(forceUpdate());
+
     };
 
 

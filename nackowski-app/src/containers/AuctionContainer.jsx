@@ -8,6 +8,7 @@ import dayjs from 'dayjs';
 const AuctionContainer = () => {
 
     const [auctionList, setAuctionList] = useState([]);
+    const [requestData, setRequestData] = useState(dayjs());
 
     useEffect(() => {
         let url = "http://nackowskis.azurewebsites.net/api/Auktion/2400/"
@@ -20,7 +21,7 @@ const AuctionContainer = () => {
 
                 setAuctionList(filteredData);
             })
-    }, []);
+    }, [requestData]);
 
     const search = (searchparam) => {
 
@@ -49,7 +50,7 @@ const AuctionContainer = () => {
                 <Row className="justify-content-md-center mx-auto">
                     <Col xs={10} md={12}>
                         <Search callback={search} />
-                        <AuctionList list={auctionList} />
+                        <AuctionList list={auctionList} setRequestData={setRequestData} />
                     </Col>
 
                 </Row>
