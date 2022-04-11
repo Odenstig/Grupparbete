@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Button, Card, FormControl, FormGroup, Modal, ModalBody, ModalFooter, Row, Col, Form } from 'react-bootstrap';
+import { Button, Card, FormControl, FormGroup, Modal, ModalBody, ModalFooter, Row, Col} from 'react-bootstrap';
 import dayjs from 'dayjs';
 import './views/styles/ListStyle.css';
 
@@ -11,7 +11,9 @@ const AuctionList = ({ list }) => {
     const [bids, setBids] = useState([]);
     const bidName = useRef();
     const bidSum = useRef();
-    const [highbid, setHighBid] = useState([]);
+    const [, updateState] = React.useState();
+    const forceUpdate = React.useCallback(() => updateState({}), []);
+
 
     let right = {
         float: "right"
@@ -20,7 +22,7 @@ const AuctionList = ({ list }) => {
         textAlign: "center",
         alignSelf: "center",
         alignItems: "center"
-    }
+    };
     let card = {
         height: "30%",
         minHeight: "300px",
@@ -31,7 +33,7 @@ const AuctionList = ({ list }) => {
 
     const closeModal = () => {
         setShow(false);
-    }
+    };
     const handleClick = (auction) => {
         setAuction(auction);
         setShow(true);
@@ -48,11 +50,28 @@ const AuctionList = ({ list }) => {
                 setBidsLi(list);
             });
     };
+    const removeAuction = (auction) => {
+
+        let url = "http://nackowskis.azurewebsites.net/api/Auktion/2400/" + auction.AuktionID;
+
+        fetch(url,{
+            method: 'DELETE',
+            body: JSON.stringify(auction),
+            headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+            }
+            }).then(function (data) {
+            console.log('Request success: ', 'posten borttagen');
+           })
+        .then(forceUpdate());
+    };    
+    
     const addBid = () => {
         if (bidSum.current.value <= bidsLi[0] || bidSum.current.value < auction.Utropspris) {
             alert("Du kan inte bjuda under nuvarande bud")
             return;
-        }
+        };
         let url = "http://nackowskis.azurewebsites.net/api/bud/2400";
         let bid = {
             "Summa": bidSum.current.value,
@@ -73,7 +92,7 @@ const AuctionList = ({ list }) => {
                 closeModal();
             })
             .catch(err => console.log(err));
-    }
+    };
 
 
 
@@ -101,7 +120,7 @@ const AuctionList = ({ list }) => {
                     </Card.Header>
                     <Card.Body>
                         <div className='card-price'>
-                            <Card.Text >Utropspris:   {auction.Utropspris}:-</Card.Text>
+                            <Card.Text >Utropspris:   {auction.Utropspris}kr</Card.Text>
                         </div>
                         <Card.Text style={mid} >{auction.Beskrivning}</Card.Text>
                     </Card.Body>
@@ -109,7 +128,12 @@ const AuctionList = ({ list }) => {
                         <Card.Text>{auction.SkapadAv}<span style={right}>{aktiv}</span></Card.Text>
                     </Card.Footer>
 
-                    <Button className='btn btn-dark' onClick={() => handleClick(auction)} >Mer</Button>
+                    <Button className='btn btn-dark' onClick={() => handleClick(auction)} >Detaljer</Button>
+                    {aktiv==="Aktiv" && <Button className='btn btn-dark' onClick={() => removeAuction(auction)} >Ta bort</Button>}
+                    {aktiv==="Aktiv" && <Button className='btn btn-dark' onClick={() => removeAuction(auction)} >Uppdatera</Button>}
+
+                    
+
                 </Card>
 
             </div >
