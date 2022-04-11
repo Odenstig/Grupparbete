@@ -22,30 +22,28 @@ const AuctionContainer = () => {
     const search = (searchparam) => {
 
 
-        let url = "http://nackowskis.azurewebsites.net/api/Auktion/2400" + searchparam;
+        let url = "http://nackowskis.azurewebsites.net/api/Auktion/2400/"
 
         fetch(url)
         .then(response => response.json())
         .then(data => {
+            
+            let list = data.filter(x=>x.Titel.toLowerCase().includes(searchparam.toLowerCase()));
+            let array = [];
+            list.forEach(element => {
+                array.push(element);
+            });
 
-            const{title} = data;
-            let item = {Title: title};
-            setAuctionItem(item);
+            console.log(list)
+            setAuctionList(array);
         });
 
     };
 
-    const getDetails = (id) => {
-
-        let url = "http://nackowskis.azurewebsites.net/api/bud/2400/" + id;
-
-    }
-
     return (
         <>
             <Search callback={search} />
-            <AuctionList list={auctionList} />
-            <AuctionList list ={auctionItem} />
+            <AuctionList list = {auctionList}/>
         </>
     );
 };

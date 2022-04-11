@@ -3,13 +3,6 @@ import { Nav, Navbar,Container } from "react-bootstrap";
 
 const Navigation = () => {
 
-    let burger = {
-        margin: "0 20px 0 20px",
-    }
-    let nackowski = {
-        margin: "0 10px 0 20px",
-    }
-
     return (<>
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
         <Container>

@@ -13,7 +13,6 @@ const CreateAuction = () => {
   const description = useRef();
   const navigate = useNavigate();
 
-
   let dateNow = dayjs();
 
   const postAuction = (e) => {
@@ -43,8 +42,6 @@ const CreateAuction = () => {
       .catch(err => console.log(err));
     navigate('/');
   }
-
-
 
   return (
     <Container className='formContainer'>
