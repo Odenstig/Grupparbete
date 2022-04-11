@@ -97,7 +97,8 @@ const AuctionList = ({ list }) => {
 
                 <Card style={card}>
                     <Card.Header>
-                        <Card.Title>{auction.Titel}<span style={right}>{endDate}</span> </Card.Title>
+                        <Card.Title>{auction.Titel}</Card.Title>
+                        <Card.Title><span style={right}>{endDate}</span></Card.Title>
                     </Card.Header>
                     <Card.Body>
                         <div className='card-price'>

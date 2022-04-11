@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import AuctionList from '../components/AuctionList';
 import Search from '../components/Search';
+import { Container, Row, Col } from 'react-bootstrap'
 import dayjs from 'dayjs';
 
 
@@ -46,8 +47,15 @@ const AuctionContainer = () => {
 
     return (
         <>
-            <Search callback={search} />
-            <AuctionList list={auctionList} />
+            <Container className='p-0'>
+                <Row className="justify-content-md-center mx-auto">
+                    <Col xs={10} md={12}>
+                        <Search callback={search} />
+                        <AuctionList list={auctionList} />
+                    </Col>
+
+                </Row>
+            </Container>
         </>
     );
 };
