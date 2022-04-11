@@ -12,7 +12,7 @@ const Search = ({callback}) => {
     }
     let button = {
         "margin-left": "-16px",
-        "margin-top": "-2px",
+        "margin-top": "-5px",
         "padding": "4px 10px",
         color: "white",
         "border-style": "none",
