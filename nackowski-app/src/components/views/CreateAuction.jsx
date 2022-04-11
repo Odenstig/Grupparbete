@@ -15,7 +15,7 @@ const CreateAuction = () => {
 
   let dateNow = dayjs();
 
-  const postAuction = (e) => {
+  const postAuction = () => {
     let auction = {
       "Titel": title.current.value,
       "Beskrivning": description.current.value,
