@@ -8,7 +8,6 @@ import dayjs from 'dayjs';
 const AuctionContainer = () => {
 
     const [auctionList, setAuctionList] = useState([]);
-    const [bidList, setBidList] = useState([]);
 
     useEffect(() => {
         let url = "http://nackowskis.azurewebsites.net/api/Auktion/2400/"
@@ -21,7 +20,6 @@ const AuctionContainer = () => {
 
                 setAuctionList(filteredData);
             })
-
     }, []);
 
     const search = (searchparam) => {
@@ -39,11 +37,11 @@ const AuctionContainer = () => {
                     array.push(element);
                 });
 
-                console.log(list)
                 setAuctionList(array);
             });
 
     };
+
 
     return (
         <>
