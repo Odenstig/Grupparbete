@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import AuctionList from '../components/AuctionList';
 import Search from '../components/Search';
+import { Container } from 'react-bootstrap'
 
 const AuctionContainer = () => {
 
@@ -40,8 +41,10 @@ const AuctionContainer = () => {
 
     return (
         <>
+        <Container>
             <Search callback={search} />
             <AuctionList list = {auctionList}/>
+        </Container>
         </>
     );
 };
