@@ -17,8 +17,6 @@ const AuctionContainer = () => {
             })
     },[]);
 
-    const[auctionItem, setAuctionItem] = useState({Title:""});
-
     const search = (searchparam) => {
 
 
