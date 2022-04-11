@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Button, Card, FormControl, FormGroup, Modal, ModalBody, ModalFooter, Row, Col} from 'react-bootstrap';
+import { Button, Card, FormControl, FormGroup, Modal, ModalBody, ModalFooter, Row, Col } from 'react-bootstrap';
 import dayjs from 'dayjs';
 import './views/styles/ListStyle.css';
 
@@ -63,14 +63,14 @@ const AuctionList = ({ list }) => {
 
         let url = "http://nackowskis.azurewebsites.net/api/Auktion/2400/" + auction.AuktionID;
 
-        fetch(url,{
+        fetch(url, {
             method: 'DELETE',
             body: JSON.stringify(auction),
             headers: {
-            'Accept': 'application/json, text/plain, */*',
-            'Content-Type': 'application/json'
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
             }
-            }).then(function (data) {
+        }).then(function (data) {
             console.log('Request success: ', 'posten borttagen');
            })
     };    
@@ -90,6 +90,10 @@ const AuctionList = ({ list }) => {
            })
         .then(forceUpdate());
     };  
+        })
+            .then(forceUpdate());
+    };
+
     const addBid = () => {
         if ( (bids.length > 0 && bidSum.current.value <= bids[0].Summa) || (bidSum.current.value < auction.Utropspris)) {
             alert("Du kan inte bjuda under nuvarande bud")
@@ -156,6 +160,11 @@ const AuctionList = ({ list }) => {
                     {auction.aktiv==="Aktiv" && <Button className='btn btn-dark' onClick={() => removeAuction(auction)} >Ta bort</Button>}
                     {auction.aktiv==="Aktiv" && <Button className='btn btn-dark' onClick={() => updateAuction(auction)} >Uppdatera</Button>}
                     </div>
+                    {auction.aktiv === "Aktiv" && <Button className='btn btn-dark' onClick={() => removeAuction(auction)} >Ta bort</Button>}
+                    {auction.aktiv === "Aktiv" && <Button className='btn btn-dark' onClick={() => removeAuction(auction)} >Uppdatera</Button>}
+
+
+
                 </Card>
             </div >
         );
