@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import AuctionList from '../components/AuctionList';
 import Search from '../components/Search';
+import dayjs from 'dayjs';
+
 
 const AuctionContainer = () => {
 
     const [auctionList, setAuctionList] = useState([]);
+    const [bidList,setBidList] = useState([]);
 
     useEffect(() => {
         let url = "http://nackowskis.azurewebsites.net/api/Auktion/2400/"
@@ -13,8 +16,12 @@ const AuctionContainer = () => {
             .then(res => res.json())
             .then(data => {
                 console.log(data)
-                setAuctionList(data);
+
+                let filteredData = data.filter(x=>dayjs(x.SlutDatum).format("YYYY-MM-DD HH:mm") > dayjs().format("YYYY-MM-DD HH:mm"));
+
+                setAuctionList(filteredData);
             })
+        
     },[]);
 
     const search = (searchparam) => {
