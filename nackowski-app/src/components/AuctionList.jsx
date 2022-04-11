@@ -75,20 +75,25 @@ const AuctionList = ({ list }) => {
 
         let url = "http://nackowskis.azurewebsites.net/api/bud/2400/" + bud;
 
-        let response = fetch(url).then(response => response.json());
+        let bud1;
+        fetch(url).then(response => response.json())
+        .then(data => {
+            
+            bud1 = data[0].Summa
 
-        let bud1 = response[0].Summa;
-
-        response.Summa.forEach(sum => {
-
-            if(bud1 < sum)
-            {
-                bud1 = sum;
-            }
-
-        });
-
-        return bud1;
+            data.forEach(sum => {
+    
+                if(bud1 < sum.Summa)
+                {
+                    bud1 = sum.Summa;
+                }
+    
+            });
+            
+            console.log(bud1)
+            return bud1;
+        })
+        
     }
 
     list = list.sort((a, b) => {
@@ -101,6 +106,7 @@ const AuctionList = ({ list }) => {
         let slutDatum = dayjs(auction.SlutDatum).format("YYYY-MM-DD HH:mm");
         let currentDate = dayjs().format("YYYY-MM-DD HH:mm");;
         let aktiv = "Aktiv";
+        let lastBid = getFinalBid(auction.AuktionID)
 
         if (currentDate > slutDatum ) {
             aktiv = "Inaktiv";
@@ -115,7 +121,7 @@ const AuctionList = ({ list }) => {
                     </Card.Header>
                     <Card.Body>
                         <div className='card-price'>
-                        <Card.Text >Utropspris:   {auction.Utropspris}:-</Card.Text>
+                        <Card.Text >Utropspris:   {lastBid}:-</Card.Text>
                         </div>
                         <Card.Text style={mid} >{auction.Beskrivning}</Card.Text>
                     </Card.Body>
