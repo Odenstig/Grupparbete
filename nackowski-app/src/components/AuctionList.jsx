@@ -15,10 +15,15 @@ const AuctionList = ({ list }) => {
     let right = {
         float: "right"
     };
+    let mid = {
+        textAlign:"center",
+        alignSelf: "center",
+        alignItems: "center"
+    }
     let card = {
         height: "30%",
         minHeight: "300px",
-        width: "18rem",
+        width: "24rem",
         margin: "20px",
         float: "left"
     };    
@@ -65,7 +70,7 @@ const AuctionList = ({ list }) => {
             .catch(err => console.log(err));
     }
 
-    };    
+       
 
     list = list.sort((a, b) => {
         return (dayjs(b.SlutDatum).isAfter(dayjs(a.SlutDatum)) ? 1 : -1);
@@ -90,8 +95,10 @@ const AuctionList = ({ list }) => {
                         <Card.Title>{auction.Titel}<span style={right}>{endDate}</span> </Card.Title>
                     </Card.Header>
                     <Card.Body>
-                        <Card.Text>{auction.Beskrivning}</Card.Text>
-                        <Card.Text>{auction.Utropspris} - {highbid}</Card.Text>
+                        <div className='card-price'>
+                        <Card.Text >Utropspris:   {auction.Utropspris}:-</Card.Text>
+                        </div>
+                        <Card.Text style={mid} >{auction.Beskrivning}</Card.Text>
                     </Card.Body>
                     <Card.Footer>
                         <Card.Text>{auction.SkapadAv}<span style={right}>{aktiv}</span></Card.Text>
@@ -103,7 +110,7 @@ const AuctionList = ({ list }) => {
             </div >
         );
     });
-
+    
     return (
         <div>
             {auctionList}
