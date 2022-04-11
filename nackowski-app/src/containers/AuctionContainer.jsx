@@ -50,7 +50,7 @@ const AuctionContainer = () => {
         <>
             <Container className='p-0'>
                 <Row className="justify-content-md-center mx-auto">
-                    <Col xs={10}>
+                    <Col xs={10} md={12}>
                         <Search callback={search} />
                         <AuctionList list = {auctionList}/> 
                     </Col>
