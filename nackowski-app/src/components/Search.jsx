@@ -1,29 +1,29 @@
-import {useRef} from 'react';
+import { useRef } from 'react';
 
-const Search = ({callback}) => {
+const Search = ({ callback }) => {
 
     let searchBox = {
         margin: "20px"
     }
     let text = {
-        "border-radius": "5px",
-        "margin-right": "5px",
+        borderRadius: "5px",
+        marginRight: "5px",
         padding: "2px 0 2px 4px"
     }
     let button = {
-        "margin-left": "-16px",
-        "margin-top": "-5px",
-        "padding": "4px 10px",
+        marginLeft: "-16px",
+        marginTop: "-5px",
+        padding: "4px 10px",
         color: "white",
-        "border-style": "none",
+        borderStyle: "none",
     }
 
     const searchVal = useRef();
 
-    return(
+    return (
         <div style={searchBox}>
-            <input type="text" ref={searchVal} style={text} placeholder="Sök.."/>
-            <button style={button} className="btn btn-dark" onClick = {() => {callback(searchVal.current.value)}}>Sök</button>
+            <input type="text" ref={searchVal} style={text} placeholder="Sök.." />
+            <button style={button} className="btn btn-dark" onClick={() => { callback(searchVal.current.value) }}>Sök</button>
         </div>);
 };
 
