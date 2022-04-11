@@ -90,9 +90,7 @@ const AuctionList = ({ list }) => {
            })
         .then(forceUpdate());
     };  
-        })
-            .then(forceUpdate());
-    };
+
 
     const addBid = () => {
         if ( (bids.length > 0 && bidSum.current.value <= bids[0].Summa) || (bidSum.current.value < auction.Utropspris)) {
@@ -160,11 +158,6 @@ const AuctionList = ({ list }) => {
                     {auction.aktiv==="Aktiv" && <Button className='btn btn-dark' onClick={() => removeAuction(auction)} >Ta bort</Button>}
                     {auction.aktiv==="Aktiv" && <Button className='btn btn-dark' onClick={() => updateAuction(auction)} >Uppdatera</Button>}
                     </div>
-                    {auction.aktiv === "Aktiv" && <Button className='btn btn-dark' onClick={() => removeAuction(auction)} >Ta bort</Button>}
-                    {auction.aktiv === "Aktiv" && <Button className='btn btn-dark' onClick={() => removeAuction(auction)} >Uppdatera</Button>}
-
-
-
                 </Card>
             </div >
         );
