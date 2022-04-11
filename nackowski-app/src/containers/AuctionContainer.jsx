@@ -18,26 +18,30 @@ const AuctionContainer = () => {
     },[]);
 
     const search = (searchparam) => {
-        // let url ="https://swapi.dev/api/people/?search=" + searchparam;
 
-        // fetch(url)
-        // .then(response=>response.json())
-        // .then(data=>{
 
-        //     setAuctionList(data);
-        // });
+        let url = "http://nackowskis.azurewebsites.net/api/Auktion/2400/"
+
+        fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            
+            let list = data.filter(x=>x.Titel.toLowerCase().includes(searchparam.toLowerCase()));
+            let array = [];
+            list.forEach(element => {
+                array.push(element);
+            });
+
+            console.log(list)
+            setAuctionList(array);
+        });
+
     };
-
-    const getDetails = (id) => {
-
-        let url = "http://nackowskis.azurewebsites.net/api/bud/2400/" + id;
-
-    }
 
     return (
         <>
             <Search callback={search} />
-            <AuctionList list={auctionList} />
+            <AuctionList list = {auctionList}/>
         </>
     );
 };

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Card, Carousel, Modal, ModalBody } from 'react-bootstrap';
+import { Button, Card, Modal, ModalBody } from 'react-bootstrap';
 import dayjs from 'dayjs';
 import './views/styles/ListStyle.css';
 
@@ -11,7 +11,6 @@ const AuctionList = ({ list }) => {
     const [show, setShow] = useState(false);
     const [auction, setAuction] = useState({});
     const [bids, setBids] = useState();
-    const [bidList, setList] = useState()
 
     const closeModal = () => {
         setShow(false);
@@ -30,11 +29,7 @@ const AuctionList = ({ list }) => {
                 })
                 setBids(list.reverse());
             });
-
-
-
-
-    }
+    };
 
     let card = {
         height: "30%",
@@ -42,10 +37,10 @@ const AuctionList = ({ list }) => {
         width: "18rem",
         margin: "20px",
         float: "left"
-    }
+    };
     list = list.sort((a, b) => {
         return (dayjs(b.SlutDatum).isAfter(dayjs(a.SlutDatum)) ? 1 : -1);
-    })
+    });
     let auctionList = list.map(auction => {
         let endDate = dayjs(auction.SlutDatum).format("YYYY-MM-DD HH:mm")
         return (
@@ -68,7 +63,6 @@ const AuctionList = ({ list }) => {
             </div >
         );
     });
-
 
     return (
         <div>
