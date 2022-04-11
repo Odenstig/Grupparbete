@@ -5,7 +5,8 @@ import './views/styles/ListStyle.css';
 
 const AuctionList = ({ list }) => {
     let right = {
-        float: "right"
+        float: "right",
+        fontSize: "0.8em"
     };
 
     const [show, setShow] = useState(false);
@@ -48,7 +49,8 @@ const AuctionList = ({ list }) => {
 
                 <Card style={card}>
                     <Card.Header>
-                        <Card.Title>{auction.Titel}<span style={right}>{endDate}</span> </Card.Title>
+                        <Card.Title>{auction.Titel}</Card.Title>
+                        <Card.Title><span style={right}>{endDate}</span></Card.Title>
                     </Card.Header>
                     <Card.Body>
                         <Card.Text>{auction.Beskrivning}</Card.Text>

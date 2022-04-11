@@ -41,9 +41,9 @@ const AuctionContainer = () => {
 
     return (
         <>
-            <Container>
+            <Container className='p-0'>
                 <Row className="justify-content-md-center mx-auto">
-                    <Col>
+                    <Col xs={10}>
                         <Search callback={search} />
                         <AuctionList list = {auctionList}/> 
                     </Col>
