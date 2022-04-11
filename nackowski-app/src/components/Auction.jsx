@@ -1,4 +1,4 @@
-import { Button, Card, FormControl, FormGroup, Modal, ModalBody, ModalFooter, Row, Col } from 'react-bootstrap';
+import { Button, Card } from 'react-bootstrap';
 import React from 'react'
 
 

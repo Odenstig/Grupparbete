@@ -1,4 +1,4 @@
-import { Button, Card, FormControl, FormGroup, Modal, ModalBody, ModalFooter, Row, Col } from 'react-bootstrap';
+import { Button, FormControl, FormGroup, Modal, ModalBody, ModalFooter, Row, Col } from 'react-bootstrap';
 
 const DetailModal = ({ show, closeModal, auction, bids, bidsLi, addBid, bidSum, bidName }) => {
     return (
