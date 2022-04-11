@@ -7,7 +7,7 @@ import dayjs from 'dayjs';
 const AuctionContainer = () => {
 
     const [auctionList, setAuctionList] = useState([]);
-    const [bidList,setBidList] = useState([]);
+    const [bidList, setBidList] = useState([]);
 
     useEffect(() => {
         let url = "http://nackowskis.azurewebsites.net/api/Auktion/2400/"
@@ -15,14 +15,13 @@ const AuctionContainer = () => {
         fetch(url)
             .then(res => res.json())
             .then(data => {
-                console.log(data)
 
-                let filteredData = data.filter(x=>dayjs(x.SlutDatum).format("YYYY-MM-DD HH:mm") > dayjs().format("YYYY-MM-DD HH:mm"));
+                let filteredData = data.filter(x => dayjs(x.SlutDatum).format("YYYY-MM-DD HH:mm") > dayjs().format("YYYY-MM-DD HH:mm"));
 
                 setAuctionList(filteredData);
             })
-        
-    },[]);
+
+    }, []);
 
     const search = (searchparam) => {
 
@@ -30,25 +29,25 @@ const AuctionContainer = () => {
         let url = "http://nackowskis.azurewebsites.net/api/Auktion/2400/"
 
         fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            
-            let list = data.filter(x=>x.Titel.toLowerCase().includes(searchparam.toLowerCase()));
-            let array = [];
-            list.forEach(element => {
-                array.push(element);
-            });
+            .then(response => response.json())
+            .then(data => {
 
-            console.log(list)
-            setAuctionList(array);
-        });
+                let list = data.filter(x => x.Titel.toLowerCase().includes(searchparam.toLowerCase()));
+                let array = [];
+                list.forEach(element => {
+                    array.push(element);
+                });
+
+                console.log(list)
+                setAuctionList(array);
+            });
 
     };
 
     return (
         <>
             <Search callback={search} />
-            <AuctionList list = {auctionList}/>
+            <AuctionList list={auctionList} />
         </>
     );
 };
