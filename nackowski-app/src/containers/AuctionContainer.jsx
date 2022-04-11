@@ -5,6 +5,7 @@ import Search from '../components/Search';
 const AuctionContainer = () => {
 
     const [auctionList, setAuctionList] = useState([]);
+    const [bidList,setBidList] = useState([]);
 
     useEffect(() => {
         let url = "http://nackowskis.azurewebsites.net/api/Auktion/2400/"
@@ -15,6 +16,7 @@ const AuctionContainer = () => {
                 console.log(data)
                 setAuctionList(data);
             })
+        
     },[]);
 
     const search = (searchparam) => {

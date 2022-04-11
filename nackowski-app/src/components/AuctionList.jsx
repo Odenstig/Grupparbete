@@ -4,15 +4,25 @@ import dayjs from 'dayjs';
 import './views/styles/ListStyle.css';
 
 const AuctionList = ({ list }) => {
-    let right = {
-        float: "right"
-    };
 
     const [show, setShow] = useState(false);
     const [auction, setAuction] = useState({});
     const [bids, setBids] = useState();
     const bidName = useRef();
     const bidSum = useRef();
+    const[highbid, setHighBid] = useState([]);
+
+    let right = {
+        float: "right"
+    };
+    let card = {
+        height: "30%",
+        minHeight: "300px",
+        width: "18rem",
+        margin: "20px",
+        float: "left"
+    };    
+
     const closeModal = () => {
         setShow(false);
     }
@@ -25,6 +35,7 @@ const AuctionList = ({ list }) => {
         fetch(url)
             .then(response => response.json())
             .then(data => {
+                console.log(data)
                 let list = data.map(bid => {
                     return (<li>{bid.Budgivare} - {bid.Summa}kr</li>)
                 })
@@ -53,18 +64,24 @@ const AuctionList = ({ list }) => {
             })
             .catch(err => console.log(err));
     }
-    let card = {
-        height: "30%",
-        minHeight: "300px",
-        width: "18rem",
-        margin: "20px",
-        float: "left"
-    };
+
+    };    
+
     list = list.sort((a, b) => {
         return (dayjs(b.SlutDatum).isAfter(dayjs(a.SlutDatum)) ? 1 : -1);
     });
+
     let auctionList = list.map(auction => {
+        
         let endDate = dayjs(auction.SlutDatum).format("YYYY-MM-DD HH:mm")
+        let slutDatum = dayjs(auction.SlutDatum).format("YYYY-MM-DD HH:mm");
+        let currentDate = dayjs().format("YYYY-MM-DD HH:mm");;
+        let aktiv = "Aktiv";
+
+        if (currentDate > slutDatum ) {
+            aktiv = "Inaktiv";
+        };          
+
         return (
             <div className="container-md-2" >
 
@@ -74,9 +91,10 @@ const AuctionList = ({ list }) => {
                     </Card.Header>
                     <Card.Body>
                         <Card.Text>{auction.Beskrivning}</Card.Text>
+                        <Card.Text>{auction.Utropspris} - {highbid}</Card.Text>
                     </Card.Body>
                     <Card.Footer>
-                        <Card.Text>{auction.SkapadAv}<span style={right}>{auction.Utropspris}</span></Card.Text>
+                        <Card.Text>{auction.SkapadAv}<span style={right}>{aktiv}</span></Card.Text>
                     </Card.Footer>
 
                     <Button className='btn btn-dark' onClick={() => handleClick(auction)} >Mer</Button>
