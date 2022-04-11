@@ -70,7 +70,26 @@ const AuctionList = ({ list }) => {
             .catch(err => console.log(err));
     }
 
-       
+    const getFinalBid = (bud) => {
+
+
+        let url = "http://nackowskis.azurewebsites.net/api/bud/2400/" + bud;
+
+        let response = fetch(url).then(response => response.json());
+
+        let bud1 = response[0].Summa;
+
+        response.Summa.forEach(sum => {
+
+            if(bud1 < sum)
+            {
+                bud1 = sum;
+            }
+
+        });
+
+        return bud1;
+    }
 
     list = list.sort((a, b) => {
         return (dayjs(b.SlutDatum).isAfter(dayjs(a.SlutDatum)) ? 1 : -1);
