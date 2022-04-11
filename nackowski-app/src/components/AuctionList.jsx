@@ -49,7 +49,7 @@ const AuctionList = ({ list }) => {
             });
     };
     const addBid = () => {
-        if (bidSum.current.value <= bidsLi[0] || bidSum.current.value < auction.Utropspris) {
+        if (bidSum.current.value <= bids[0].Summa || bidSum.current.value < auction.Utropspris) {
             alert("Du kan inte bjuda under nuvarande bud")
             return;
         }
@@ -86,10 +86,10 @@ const AuctionList = ({ list }) => {
         let endDate = dayjs(auction.SlutDatum).format("YYYY-MM-DD HH:mm")
         let slutDatum = dayjs(auction.SlutDatum).format("YYYY-MM-DD HH:mm");
         let currentDate = dayjs().format("YYYY-MM-DD HH:mm");;
-        let aktiv = "Aktiv";
+        auction.aktiv = "Aktiv";
 
         if (currentDate > slutDatum) {
-            aktiv = "Inaktiv";
+            auction.aktiv = "Inaktiv";
         };
 
         return (
@@ -106,7 +106,7 @@ const AuctionList = ({ list }) => {
                         <Card.Text style={mid} >{auction.Beskrivning}</Card.Text>
                     </Card.Body>
                     <Card.Footer>
-                        <Card.Text>{auction.SkapadAv}<span style={right}>{aktiv}</span></Card.Text>
+                        <Card.Text>{auction.SkapadAv}<span style={right}>{auction.aktiv}</span></Card.Text>
                     </Card.Footer>
 
                     <Button className='btn btn-dark' onClick={() => handleClick(auction)} >Mer</Button>
@@ -140,9 +140,7 @@ const AuctionList = ({ list }) => {
                             {auction.Beskrivning}
                         </Col>
                         <Col>
-                            <ul>
-                                {bidsLi}
-                            </ul>
+                            {auction.aktiv == "Aktiv" ? <ul>{bidsLi}</ul> : <ul>{bidsLi[0]}</ul>}
                         </Col>
                     </Row>
 
