@@ -60,7 +60,7 @@ const AuctionList = ({ list, setRequestData }) => {
                 setBids(data.reverse());
                 let list = data.map(bid => {
                     return (<li>{bid.Budgivare} - {bid.Summa}kr</li>)
-                })
+                });
                 setBidsLi(list);
             });
     };
@@ -73,7 +73,8 @@ const AuctionList = ({ list, setRequestData }) => {
                 if (data.length) {
                     alert("Det går inte att ta bort auktioner med bud.")
                 };
-            });
+            })
+
 
         let url = "http://nackowskis.azurewebsites.net/api/Auktion/2400/" + auction.AuktionID;
 
@@ -88,6 +89,7 @@ const AuctionList = ({ list, setRequestData }) => {
             console.log('Request success: ', 'posten borttagen');
         }).then(() => setRequestData(dayjs()));
     };
+
     const updateAuction = (auction) => {
 
         let updatedAuction = {
@@ -99,6 +101,15 @@ const AuctionList = ({ list, setRequestData }) => {
             "Utropspris": price.current.value,
             "SkapadAv": name.current.value,
         }
+        let budUrl = "http://nackowskis.azurewebsites.net/api/bud/2400/" + auction.AuktionID;
+        fetch(budUrl)
+            .then(res => res.json())
+            .then(data => {
+                if (data.length) {
+                    alert("Det går inte att uppdatera auktioner med bud.")
+                };
+            })
+            .then(() => setRequestData(dayjs()));
 
         let url = "http://nackowskis.azurewebsites.net/api/Auktion/2400/" + auction.AuktionID;
 
@@ -126,10 +137,12 @@ const AuctionList = ({ list, setRequestData }) => {
 
 
     const addBid = () => {
+
         if ((bids.length > 0 && bidSum.current.value <= bids[0].Summa) || (bidSum.current.value < auction.Utropspris)) {
             alert("Du kan inte bjuda under nuvarande bud")
             return;
         };
+
         let url = "http://nackowskis.azurewebsites.net/api/bud/2400";
         let bid = {
             "Summa": bidSum.current.value,
