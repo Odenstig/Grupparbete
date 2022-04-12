@@ -17,6 +17,11 @@ const Auction = ({ auction, endDate, handleClick, removeAuction, updateAuction }
     margin: "20px",
     float: "left"
   };
+  let btn = {
+    width:"33%",
+    margin:"0.5px"
+
+  }
   return (
     <div className="container-md-2" >
 
@@ -34,10 +39,10 @@ const Auction = ({ auction, endDate, handleClick, removeAuction, updateAuction }
         <Card.Footer>
           <Card.Text>{auction.SkapadAv}<span style={right}>{auction.aktiv}</span></Card.Text>
         </Card.Footer>
-        <div>
-          <Button className='btn btn-dark' onClick={() => handleClick(auction)} >Detaljer</Button>
-          {auction.aktiv === "Aktiv" && <Button className='btn btn-dark' onClick={() => removeAuction(auction)} >Ta bort</Button>}
-          {auction.aktiv === "Aktiv" && <Button className='btn btn-dark' onClick={() => updateAuction(auction)} >Uppdatera</Button>}
+        <div className='container-md-3'>
+          <Button style={btn} className='btn btn-dark' onClick={() => handleClick(auction)} >Detaljer</Button>
+          {auction.aktiv === "Aktiv" && <Button style={btn} className='btn btn-dark' onClick={() => removeAuction(auction)} >Ta bort</Button>}
+          {auction.aktiv === "Aktiv" && <Button style={btn} className='btn btn-dark' onClick={() => updateAuction(auction)} >Uppdatera</Button>}
         </div>
       </Card>
     </div >
