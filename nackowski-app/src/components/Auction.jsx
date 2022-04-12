@@ -1,7 +1,7 @@
 import { Button, Card } from 'react-bootstrap';
 import React from 'react';
 
-const Auction = ({ auction, endDate, handleClick, removeAuction, updateAuction }) => {
+const Auction = ({ auction, endDate, handleClick, removeAuction, handleUpdateClick }) => {
   let right = {
     float: "right"
   };
@@ -18,8 +18,8 @@ const Auction = ({ auction, endDate, handleClick, removeAuction, updateAuction }
     float: "left"
   };
   let btn = {
-    width:"33%",
-    margin:"0.5px"
+    width: "33%",
+    margin: "0.5px"
 
   }
   return (
@@ -46,7 +46,7 @@ const Auction = ({ auction, endDate, handleClick, removeAuction, updateAuction }
         <div className='container-md-3'>
           <Button style={btn} className='btn btn-dark' onClick={() => handleClick(auction)} >Detaljer</Button>
           {auction.aktiv === "Aktiv" && <Button style={btn} className='btn btn-dark' onClick={() => removeAuction(auction)} >Ta bort</Button>}
-          {auction.aktiv === "Aktiv" && <Button style={btn} className='btn btn-dark' onClick={() => updateAuction(auction)} >Uppdatera</Button>}
+          {auction.aktiv === "Aktiv" && <Button style={btn} className='btn btn-dark' onClick={() => handleUpdateClick(auction)} >Uppdatera</Button>}
         </div>
       </Card>
     </div >
