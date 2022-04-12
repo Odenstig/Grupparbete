@@ -1,13 +1,7 @@
 import { Button, FormControl, FormGroup, Modal, ModalBody, ModalFooter, Row, Col } from 'react-bootstrap';
-import dayjs from 'dayjs';
 
 const DetailModal = ({ show, closeModal, auction, bids, bidsLi, addBid, bidSum, bidName }) => {
-
-    let slutDatum = dayjs(auction.SlutDatum).format("YYYY-MM-DD HH:mm");
-    let currentDate = dayjs().format("YYYY-MM-DD HH:mm");;
-    if (currentDate > slutDatum) {
-
-    };
+    
         return (
             <>
             <Modal show={show} onHide={closeModal} size="lg">
@@ -56,6 +50,6 @@ const DetailModal = ({ show, closeModal, auction, bids, bidsLi, addBid, bidSum, 
             </Modal>
         </>
     );
-}
+};
 
 export default DetailModal;

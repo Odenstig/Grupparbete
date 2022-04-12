@@ -28,7 +28,7 @@ const AuctionList = ({ list, setRequestData }) => {
                 setBids(data.reverse());
                 let list = data.map(bid => {
                     return (<li>{bid.Budgivare} - {bid.Summa}kr</li>)
-                })
+                });
                 setBidsLi(list);
             });
     };
@@ -43,7 +43,6 @@ const AuctionList = ({ list, setRequestData }) => {
                 };
             })
             .then(() => setRequestData(dayjs()));
-        ;
 
         let url = "http://nackowskis.azurewebsites.net/api/Auktion/2400/" + auction.AuktionID;
 
@@ -56,8 +55,9 @@ const AuctionList = ({ list, setRequestData }) => {
             }
         }).then(function (data) {
             console.log('Request success: ', 'posten borttagen');
-        })
+        });
     };
+
     const updateAuction = (auction) => {
 
         let budUrl = "http://nackowskis.azurewebsites.net/api/bud/2400/" + auction.AuktionID;
@@ -69,7 +69,7 @@ const AuctionList = ({ list, setRequestData }) => {
                 };
             })
             .then(() => setRequestData(dayjs()));
-        ;
+
         let url = "http://nackowskis.azurewebsites.net/api/Auktion/2400/" + auction.AuktionID;
 
         fetch(url, {
@@ -81,16 +81,17 @@ const AuctionList = ({ list, setRequestData }) => {
             }
         }).then(function (data) {
             console.log('Request success: ', 'posten uppdaterad');
-        })
-
+        });
     };
 
 
     const addBid = () => {
+
         if ((bids.length > 0 && bidSum.current.value <= bids[0].Summa) || (bidSum.current.value < auction.Utropspris)) {
             alert("Du kan inte bjuda under nuvarande bud")
             return;
         };
+
         let url = "http://nackowskis.azurewebsites.net/api/bud/2400";
         let bid = {
             "Summa": bidSum.current.value,

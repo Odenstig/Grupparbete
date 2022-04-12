@@ -1,6 +1,5 @@
 import { Button, Card } from 'react-bootstrap';
-import React from 'react'
-
+import React from 'react';
 
 const Auction = ({ auction, endDate, handleClick, removeAuction, updateAuction }) => {
   let right = {
@@ -42,7 +41,7 @@ const Auction = ({ auction, endDate, handleClick, removeAuction, updateAuction }
         </div>
       </Card>
     </div >
-  )
-}
+  );
+};
 
-export default Auction
+export default Auction;
