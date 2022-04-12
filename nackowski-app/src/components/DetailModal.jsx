@@ -1,8 +1,15 @@
 import { Button, FormControl, FormGroup, Modal, ModalBody, ModalFooter, Row, Col } from 'react-bootstrap';
+import dayjs from 'dayjs';
 
 const DetailModal = ({ show, closeModal, auction, bids, bidsLi, addBid, bidSum, bidName }) => {
-    return (
-        <>
+
+    let slutDatum = dayjs(auction.SlutDatum).format("YYYY-MM-DD HH:mm");
+    let currentDate = dayjs().format("YYYY-MM-DD HH:mm");;
+    if (currentDate > slutDatum) {
+
+    };
+        return (
+            <>
             <Modal show={show} onHide={closeModal} size="lg">
                 <Modal.Header closeButton>
                     <Row className="justify-content-between">
@@ -30,17 +37,17 @@ const DetailModal = ({ show, closeModal, auction, bids, bidsLi, addBid, bidSum, 
 
                 </ModalBody>
                 <ModalFooter>
-                    <FormGroup>
+                     <FormGroup>
                         <Row>
                             <Col>
-                                <FormControl type="text" placeholder="Namn" ref={bidName} autoFocus required />
+                            {auction.aktiv === "Aktiv" && <FormControl type="text" placeholder="Namn" ref={bidName} autoFocus required />}
 
                             </Col>
                             <Col>
-                                <FormControl type="text" placeholder="Pris" ref={bidSum} required />
+                            {auction.aktiv === "Aktiv" && <FormControl type="text" placeholder="Pris" ref={bidSum} required />}
                             </Col>
                             <Col>
-                                <Button className='btn btn-dark' onClick={addBid}>Lägg Bud</Button>
+                            {auction.aktiv === "Aktiv" &&<Button className='btn btn-dark' onClick={addBid}>Lägg Bud</Button>}
                             </Col>
                         </Row>
 

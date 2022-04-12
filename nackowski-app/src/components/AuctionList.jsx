@@ -60,6 +60,16 @@ const AuctionList = ({ list, setRequestData }) => {
     };
     const updateAuction = (auction) => {
 
+        let budUrl = "http://nackowskis.azurewebsites.net/api/bud/2400/" + auction.AuktionID;
+        fetch(budUrl)
+            .then(res => res.json())
+            .then(data => {
+                if (data.length) {
+                    alert("Det går inte att uppdatera auktioner med bud.")
+                };
+            })
+            .then(() => setRequestData(dayjs()));
+        ;
         let url = "http://nackowskis.azurewebsites.net/api/Auktion/2400/" + auction.AuktionID;
 
         fetch(url, {
@@ -70,7 +80,7 @@ const AuctionList = ({ list, setRequestData }) => {
                 'Content-Type': 'application/json'
             }
         }).then(function (data) {
-            console.log('Request success: ', 'posten borttagen');
+            console.log('Request success: ', 'posten uppdaterad');
         })
 
     };
