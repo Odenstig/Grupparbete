@@ -2,7 +2,7 @@ import { Button, Card } from 'react-bootstrap';
 import React from 'react'
 
 
-const Auction = ({ auction, endDate, handleClick, removeAuction, updateAuction }) => {
+const Auction = ({ auction, endDate, handleClick, removeAuction, handleUpdateClick }) => {
   let right = {
     float: "right"
   };
@@ -38,7 +38,7 @@ const Auction = ({ auction, endDate, handleClick, removeAuction, updateAuction }
         <div>
           <Button className='btn btn-dark' onClick={() => handleClick(auction)} >Detaljer</Button>
           {auction.aktiv === "Aktiv" && <Button className='btn btn-dark' onClick={() => removeAuction(auction)} >Ta bort</Button>}
-          {auction.aktiv === "Aktiv" && <Button className='btn btn-dark' onClick={() => updateAuction(auction)} >Uppdatera</Button>}
+          {auction.aktiv === "Aktiv" && <Button className='btn btn-dark' onClick={() => handleUpdateClick(auction)} >Uppdatera</Button>}
         </div>
       </Card>
     </div >
