@@ -186,7 +186,7 @@ const AuctionList = ({ list, setRequestData }) => {
         };
 
         return (
-            <Auction auction={auction} endDate={endDate} handleClick={handleClick}
+            <Auction key={auction.AuktionID} auction={auction} endDate={endDate} handleClick={handleClick}
                 removeAuction={removeAuction} handleUpdateClick={handleUpdateClick} />
         );
     });
