@@ -223,15 +223,15 @@ const AuctionList = ({ list, setRequestData }) => {
                 <ModalFooter>
                     <FormGroup>
                         <Row>
-                            <Col>
-                                <FormControl type="text" placeholder="Namn" ref={bidName} autoFocus required />
+                        <Col>
+                            {auction.aktiv === "Aktiv" && <FormControl type="text" placeholder="Namn" ref={bidName} autoFocus required />}
 
                             </Col>
                             <Col>
-                                <FormControl type="text" placeholder="Pris" ref={bidSum} required />
+                            {auction.aktiv === "Aktiv" && <FormControl type="text" placeholder="Pris" ref={bidSum} required />}
                             </Col>
                             <Col>
-                                <Button className='btn btn-dark' onClick={addBid}>Lägg Bud</Button>
+                            {auction.aktiv === "Aktiv" &&<Button className='btn btn-dark' onClick={addBid}>Lägg Bud</Button>}
                             </Col>
                         </Row>
 
