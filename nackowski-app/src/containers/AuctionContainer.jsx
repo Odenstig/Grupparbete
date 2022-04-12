@@ -9,26 +9,32 @@ const AuctionContainer = () => {
 
     const [auctionList, setAuctionList] = useState([]);
     const [requestData, setRequestData] = useState(dayjs());
+    const [loader, setLoaderState] = useState(true);
 
     useEffect(() => {
         let url = "http://nackowskis.azurewebsites.net/api/Auktion/2400/"
 
-        fetch(url)
+        const getData = async () => {
+            await fetch(url)
             .then(res => res.json())
             .then(data => {
 
                 let filteredData = data.filter(x => dayjs(x.SlutDatum).format("YYYY-MM-DD HH:mm") > dayjs().format("YYYY-MM-DD HH:mm"));
 
                 setAuctionList(filteredData);
+                setLoaderState(false);
             })
+        }
+        getData();
+        
     }, [requestData]);
 
-    const search = (searchparam) => {
+    const search = async (searchparam) => {
 
 
         let url = "http://nackowskis.azurewebsites.net/api/Auktion/2400/"
 
-        fetch(url)
+        await fetch(url)
             .then(response => response.json())
             .then(data => {
 
@@ -39,6 +45,7 @@ const AuctionContainer = () => {
                 });
 
                 setAuctionList(array);
+                setLoaderState(false);
             });
 
     };
@@ -46,7 +53,7 @@ const AuctionContainer = () => {
 
     return (
         <>
-            <Container className='p-0'>
+            {!loader ? <Container className='p-0'>
                 <Row className="justify-content-md-center mx-auto">
                     <Col xs={10} md={12}>
                         <Search callback={search} />
@@ -54,7 +61,7 @@ const AuctionContainer = () => {
                     </Col>
 
                 </Row>
-            </Container>
+            </Container> : <div className='text-center p-4'><h3>Loading...</h3></div>}
         </>
     );
 };

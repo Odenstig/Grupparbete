@@ -5,7 +5,7 @@ import Auction from './Auction';
 import { Button, Form, FormControl, FormGroup, Modal, ModalBody, ModalFooter, Row, Col } from 'react-bootstrap';
 
 
-const AuctionList = ({ list, setRequestData }) => {
+const AuctionList = ({ list, setRequestData}) => {
 
     const [showDetail, setShowDetail] = useState(false);
     const [showUpdate, setShowUpdate] = useState(false);
@@ -64,10 +64,10 @@ const AuctionList = ({ list, setRequestData }) => {
                 setBidsLi(list);
             });
     };
-    const removeAuction = (auction) => {
+    const removeAuction = async (auction) => {
 
         let budUrl = "http://nackowskis.azurewebsites.net/api/bud/2400/" + auction.AuktionID;
-        fetch(budUrl)
+        await fetch(budUrl)
             .then(res => res.json())
             .then(data => {
                 if (data.length) {
@@ -78,7 +78,7 @@ const AuctionList = ({ list, setRequestData }) => {
 
         let url = "http://nackowskis.azurewebsites.net/api/Auktion/2400/" + auction.AuktionID;
 
-        fetch(url, {
+        await fetch(url, {
             method: 'DELETE',
             body: JSON.stringify(auction),
             headers: {
@@ -90,7 +90,7 @@ const AuctionList = ({ list, setRequestData }) => {
         }).then(() => setRequestData(dayjs()));
     };
 
-    const updateAuction = (auction) => {
+    const updateAuction = async (auction) => {
 
         let updatedAuction = {
             "AuktionID": auction.AuktionID,
@@ -104,7 +104,7 @@ const AuctionList = ({ list, setRequestData }) => {
         }
 
         let budUrl = "http://nackowskis.azurewebsites.net/api/bud/2400/" + auction.AuktionID;
-        fetch(budUrl)
+        await fetch(budUrl)
             .then(res => res.json())
             .then(data => {
                 if (data.length) {
@@ -115,7 +115,7 @@ const AuctionList = ({ list, setRequestData }) => {
 
         let url = "http://nackowskis.azurewebsites.net/api/Auktion/2400/" + auction.AuktionID;
 
-        fetch(url, {
+        await fetch(url, {
             method: 'PUT',
             body: JSON.stringify(updatedAuction),
             headers: {
@@ -123,15 +123,17 @@ const AuctionList = ({ list, setRequestData }) => {
                 'Content-Type': 'application/json'
             }
         })
-            .then(response => response.json())
+            // .then(response => {response.json(); console.log(response)})
             .then((data) => {
                 console.log('Request success: ', 'posten uppdaterad', data);
-
+                console.log(data)
+                
+                setRequestData(dayjs());
+                closeUpdateModal();
             })
 
 
-        closeUpdateModal();
-        setRequestData(dayjs());
+        
 
 
 
@@ -140,7 +142,7 @@ const AuctionList = ({ list, setRequestData }) => {
     };
 
 
-    const addBid = () => {
+    const addBid = async () => {
 
         if ((bids.length > 0 && bidSum.current.value <= bids[0].Summa) || (bidSum.current.value < auction.Utropspris)) {
             alert("Du kan inte bjuda under nuvarande bud")
@@ -154,7 +156,7 @@ const AuctionList = ({ list, setRequestData }) => {
             "Budgivare": bidName.current.value
         };
 
-        fetch(url, {
+        await fetch(url, {
             method: 'POST',
             body: JSON.stringify(bid),
             headers: {

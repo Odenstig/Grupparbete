@@ -15,7 +15,7 @@ const CreateAuction = () => {
 
   let dateNow = dayjs();
 
-  const postAuction = () => {
+  const postAuction = async () => {
     let auction = {
       "Titel": title.current.value,
       "Beskrivning": description.current.value,
@@ -28,7 +28,7 @@ const CreateAuction = () => {
 
     let url = "http://nackowskis.azurewebsites.net/api/Auktion/2400";
 
-    fetch(url, {
+    await fetch(url, {
       method: 'POST',
       body: JSON.stringify(auction),
       headers: {
