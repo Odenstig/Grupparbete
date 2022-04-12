@@ -93,14 +93,16 @@ const AuctionList = ({ list, setRequestData }) => {
     const updateAuction = (auction) => {
 
         let updatedAuction = {
+            "AuktionID": auction.AuktionID,
             "Titel": title.current.value,
             "Beskrivning": description.current.value,
             "StartDatum": auction.StartDatum,
             "SlutDatum": endDate.current.value,
             "Gruppkod": 2400,
             "Utropspris": price.current.value,
-            "SkapadAv": name.current.value,
+            "SkapadAv": name.current.value
         }
+
         let budUrl = "http://nackowskis.azurewebsites.net/api/bud/2400/" + auction.AuktionID;
         fetch(budUrl)
             .then(res => res.json())
@@ -123,15 +125,17 @@ const AuctionList = ({ list, setRequestData }) => {
         })
             .then(response => response.json())
             .then((data) => {
-                setShowUpdate(false);
                 console.log('Request success: ', 'posten uppdaterad', data);
 
             })
-            .catch((error) => {
-                console.log('Error: ', error)
-                closeDetailModal();
 
-            })
+
+        closeUpdateModal();
+        setRequestData(dayjs());
+
+
+
+
 
     };
 
