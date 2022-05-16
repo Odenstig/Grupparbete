@@ -11,7 +11,7 @@ const Auction = ({ auction, endDate, handleClick, removeAuction, handleUpdateCli
     alignItems: "center"
   };
   let card = {
-    height: "30%",
+    height: "31%",
     minHeight: "300px",
     width: "24rem",
     margin: "20px",
@@ -31,13 +31,13 @@ const Auction = ({ auction, endDate, handleClick, removeAuction, handleUpdateCli
           <Card.Title><span style={right}>{endDate}</span></Card.Title>
         </Card.Header>
         <Card.Body>
-          {auction.aktiv==="Aktiv" ? <div className='card-price2'> 
+          {auction.aktiv === "Aktiv" ? <div className='card-price2'>
             <Card.Text >Utropspris:   {auction.Utropspris}kr</Card.Text>
           </div>
-          :
-          <div className='card-price'> 
-            <Card.Text >Utropspris:   {auction.Utropspris}kr</Card.Text>
-          </div>}
+            :
+            <div className='card-price'>
+              <Card.Text >Utropspris:   {auction.Utropspris}kr</Card.Text>
+            </div>}
           <Card.Text style={mid} >{auction.Beskrivning}</Card.Text>
         </Card.Body>
         <Card.Footer>
