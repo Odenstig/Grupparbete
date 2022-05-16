@@ -1,0 +1,10 @@
+.formContainer {
+    width: 100%;
+    margin-top: 0.5em;
+}
+
+@media(min-width:768px) {
+    .formContainer {
+        width: 45vw;
+    }
+}
