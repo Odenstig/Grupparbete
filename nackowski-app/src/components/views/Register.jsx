@@ -3,6 +3,7 @@ import { Button, Container } from 'react-bootstrap'
 import Form from 'react-bootstrap/Form'
 import { useNavigate } from 'react-router-dom';
 import './styles/FormStyle.css';
+import Navigation from '../navigation/Navigation';
 
 const Register = () => {
   const username = useRef();
@@ -39,7 +40,8 @@ const Register = () => {
     
   }
 
-  return (
+  return (<>
+    <Navigation />
     <Container className='registerContainer'>
       <Form id="form">
 
@@ -51,11 +53,12 @@ const Register = () => {
         <Form.Control type="password" placeholder='Password' ref={password} />
         <br />
 
-        <Button onClick={register} className='btn btn-dark float-end'>Registrera</Button>
+        <Button onClick={register}  className='btn btn-dark float-end'>Registrera</Button>
 
       </Form>
 
     </Container >
+    </>
   );
 };
 

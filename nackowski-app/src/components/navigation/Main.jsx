@@ -7,7 +7,6 @@ import LoginButton from '../LoginButton';
 
 const Main = () => {
 
-  
     return(<>
       <Routes>
         <Route exact path="/" element={<Home/>} />

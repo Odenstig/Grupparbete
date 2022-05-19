@@ -4,6 +4,7 @@ import { Button, Container } from 'react-bootstrap'
 import Form from 'react-bootstrap/Form'
 import { useNavigate } from 'react-router-dom';
 import './styles/FormStyle.css';
+import Navigation from '../navigation/Navigation';
 
 const CreateAuction = () => {
   const title = useRef();
@@ -50,7 +51,8 @@ const CreateAuction = () => {
     navigate('/');
   }
 
-  return (
+  return (<>
+    <Navigation/>
     <Container className='formContainer'>
       <Form id="form">
 
@@ -79,6 +81,7 @@ const CreateAuction = () => {
       </Form>
 
     </Container >
+    </>
   );
 };
 

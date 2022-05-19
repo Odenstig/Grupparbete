@@ -4,6 +4,7 @@ import Form from 'react-bootstrap/Form'
 import { useNavigate } from 'react-router-dom';
 import './views/styles/FormStyle.css';
 import dayjs from 'dayjs';
+import Navigation from './navigation/Navigation';
 
 const LoginButton = () => {
   const username = useRef();
@@ -37,11 +38,12 @@ const LoginButton = () => {
         console.log(data);          
       })
       .catch(err => console.log(err));
-    navigate('/')
+    navigate('/');
     setExpired(true)
   }
 
-  return (
+  return (<>
+      <Navigation/>
     <Container className='loginContainer'>
       <Form id="form">
 
@@ -58,6 +60,7 @@ const LoginButton = () => {
       </Form>
 
     </Container >
+    </>
   );
 };
 
