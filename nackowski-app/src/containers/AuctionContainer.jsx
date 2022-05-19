@@ -12,7 +12,7 @@ const AuctionContainer = () => {
     const [loader, setLoaderState] = useState(true);
 
     useEffect(() => {
-        let url = "https://localhost:7203/api/auction"
+        let url = "https://nackowskiapiapi20220519103545.azurewebsites.net/api/auction"
 
         const getData = async () => {
             await fetch(url)
