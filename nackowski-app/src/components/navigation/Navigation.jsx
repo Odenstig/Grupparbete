@@ -1,8 +1,19 @@
+import React, {useEffect,useState} from 'react';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Nav, Navbar,Container } from "react-bootstrap";
 
 const Navigation = () => {
-
+    
+    const [expired, setExpired] = useState(false);
+    
+    const exp = localStorage.getItem('token-exp');
+    var dateNow = new Date();
+    
+    useEffect(() => {
+    
+    if(exp < dateNow.getTime())
+        expired = true;
+    },[expired])
     return (<>
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
         <Container>
@@ -12,12 +23,17 @@ const Navigation = () => {
             <Nav className="me-auto">
                 <LinkContainer to="/"><Nav.Link>Home</Nav.Link></LinkContainer>
                 <LinkContainer to="/create"><Nav.Link>CreateAuction</Nav.Link></LinkContainer>
-                <LinkContainer to="/register"><Nav.Link>Register</Nav.Link></LinkContainer>      
+        {expired === false && <>
+
+                <LinkContainer to="/register"><Nav.Link>Register</Nav.Link></LinkContainer>
+                <LinkContainer to="/login"><Nav.Link>Logga in</Nav.Link></LinkContainer>
+        </>}
+
             </Nav>    
             </Navbar.Collapse>
         </Container>
         </Navbar>
-    </>);
-};
+    </>)
+}
 
 export default Navigation;

@@ -17,9 +17,8 @@ const Register = () => {
       "Password": password.current.value,
     }
 
-    // let url = "https://nackowskiapiapi20220519103545.azurewebsites.net/api/authenticate/register"; //Ändra denna URL
-    let url = "https://localhost:7203/api/authenticate/register";
-    // https://secure-badlands-04420.herokuapp.com/
+    let url = "https://nackowskiapiapi20220519103545.azurewebsites.net/api/authenticate/register"; //Ändra denna URL
+
     try {
         await fetch(url, {
             method: 'POST',
