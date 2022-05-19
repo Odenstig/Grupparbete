@@ -19,7 +19,7 @@ const AuctionContainer = () => {
             .then(res => res.json())
             .then(data => {
 
-                let filteredData = data.filter(x => dayjs(x.SlutDatum).format("YYYY-MM-DD HH:mm") > dayjs().format("YYYY-MM-DD HH:mm"));
+                let filteredData = data.filter(x => dayjs(x.slutDatum).format("YYYY-MM-DD HH:mm") > dayjs().format("YYYY-MM-DD HH:mm"));
 
                 setAuctionList(filteredData);
                 setLoaderState(false);
@@ -32,7 +32,7 @@ const AuctionContainer = () => {
     const search = async (searchparam) => {
 
 
-        let url = "http://nackowskis.azurewebsites.net/api/Auktion/2400/"
+        let url = "https://localhost:7203/api/auction"
 
         await fetch(url)
             .then(response => response.json())
