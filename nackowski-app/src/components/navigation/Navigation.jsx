@@ -11,7 +11,8 @@ const Navigation = () => {
             <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
                 <LinkContainer to="/"><Nav.Link>Home</Nav.Link></LinkContainer>
-                <LinkContainer to="/create"><Nav.Link>CreateAuction</Nav.Link></LinkContainer>      
+                <LinkContainer to="/create"><Nav.Link>CreateAuction</Nav.Link></LinkContainer>
+                <LinkContainer to="/register"><Nav.Link>Register</Nav.Link></LinkContainer>      
             </Nav>    
             </Navbar.Collapse>
         </Container>
