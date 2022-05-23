@@ -23,7 +23,8 @@ const CreateAuction = () => {
       "StartDatum": dateNow,
       "SlutDatum": endDate.current.value,
       "Utropspris": price.current.value,
-      "AnvändarID" : localStorage.getItem('user-id')      
+      "AnvändarID" : localStorage.getItem('user-id'),
+      "SkapadAv" : ""     
     }
 
     let url = "https://nackowskiapiapi20220519103545.azurewebsites.net/api/auction";

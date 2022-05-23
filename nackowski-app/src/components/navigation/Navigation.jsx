@@ -15,7 +15,6 @@ const Navigation = (isExpired) => {
                 <LinkContainer to="/create"><Nav.Link>CreateAuction</Nav.Link></LinkContainer>
                 {isExpired  && <>
                 <LinkContainer to="/register"><Nav.Link>Register</Nav.Link></LinkContainer>
-                <LinkContainer to="/login"><Nav.Link>Logga in</Nav.Link></LinkContainer>
                 </>}
             </Nav>    
             </Navbar.Collapse>

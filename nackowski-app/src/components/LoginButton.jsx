@@ -40,8 +40,9 @@ const LoginButton = () => {
       .catch(err => console.log(err));
     navigate('/');
     setExpired(true)
+    localStorage.setItem("loggedin",'true')
   }
-
+  
   return (<>
     <Navigation />
     <Container className='loginContainer'>
@@ -55,7 +56,7 @@ const LoginButton = () => {
         <Form.Control type="password" placeholder='Password' ref={password} />
         <br />
 
-        <Button onClick={login} setExpired={setExpired} className='btn btn-dark float-end'>Login</Button>
+        <Button onClick={login} className='btn btn-dark float-end'>Login</Button>
 
       </Form>
     </Container >
