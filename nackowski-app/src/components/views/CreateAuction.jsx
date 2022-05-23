@@ -22,24 +22,17 @@ const CreateAuction = () => {
       "Beskrivning": description.current.value,
       "StartDatum": dateNow,
       "SlutDatum": endDate.current.value,
-      "Gruppkod": 2400,
       "Utropspris": price.current.value,
-      "SkapadAv": name.current.value,
+      "AnvändarID" : localStorage.getItem('user-id')      
     }
 
-    let url = "https://localhost:7203/api/auction";
+    let url = "https://nackowskiapiapi20220519103545.azurewebsites.net/api/auction";
 
-//     var isExpired = false;
-//     const token = localStorage.getItem('id_token');
-//     var decodedToken=jwt.decode(token, {complete: true});
-//     var dateNow = new Date();
-
-// if(decodedToken.exp < dateNow.getTime())
-    // isExpired = true;
     await fetch(url, {
       method: 'POST',
       body: JSON.stringify(auction),
       headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('id-token'),
         'Accept': 'application/json, text/plain, */*',
         'Content-Type': 'application/json'
       }
@@ -68,10 +61,6 @@ const CreateAuction = () => {
         <Form.Control placeholder='Pris' ref={price} />
         <br />
 
-        <Form.Label>Skapare</Form.Label>
-        <Form.Control placeholder='Skapare' ref={name} />
-        <br />
-
         <Form.Label>Slutdatum</Form.Label>
         <Form.Control type="date" placeholder='Slutdatum' ref={endDate} />
         <br />
@@ -79,7 +68,6 @@ const CreateAuction = () => {
         <Button onClick={postAuction} className='btn btn-dark float-end'>Skapa auktion</Button>
 
       </Form>
-
     </Container >
     </>
   );

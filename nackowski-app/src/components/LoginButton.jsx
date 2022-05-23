@@ -13,7 +13,6 @@ const LoginButton = () => {
 
   const navigate = useNavigate();
 
-
   const login = async () => {
     let user = {
       "Username": username.current.value,
@@ -59,7 +58,6 @@ const LoginButton = () => {
         <Button onClick={login} setExpired={setExpired} className='btn btn-dark float-end'>Login</Button>
 
       </Form>
-
     </Container >
   </>
   );
