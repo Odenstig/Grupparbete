@@ -294,5 +294,5 @@ const AuctionList = ({ list, setRequestData }) => {
             </div >
         );
     };
-
-    export default AuctionList;
+}
+export default AuctionList;
