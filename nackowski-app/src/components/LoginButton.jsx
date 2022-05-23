@@ -19,7 +19,7 @@ const LoginButton = () => {
       "Password": password.current.value,
     }
 
-    let url = "https://nackowskiapiapi20220519103545.azurewebsites.net/api/authenticate/login"; //Ändra denna URL
+    let url = "https://nackowskiapiapi20220519103545.azurewebsites.net/api/Authenticate/login/"; //Ändra denna URL
 
     await fetch(url, {
       method: 'POST',
