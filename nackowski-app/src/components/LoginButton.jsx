@@ -13,14 +13,13 @@ const LoginButton = () => {
 
   const navigate = useNavigate();
 
-
   const login = async () => {
     let user = {
       "Username": username.current.value,
       "Password": password.current.value,
     }
 
-    let url = "https://localhost:7203/api/authenticate/login"; //Ändra denna URL
+    let url = "https://nackowskiapiapi20220519103545.azurewebsites.net/api/authenticate/login"; //Ändra denna URL
 
     await fetch(url, {
       method: 'POST',
@@ -59,7 +58,6 @@ const LoginButton = () => {
         <Button onClick={login} setExpired={setExpired} className='btn btn-dark float-end'>Login</Button>
 
       </Form>
-
     </Container >
   </>
   );
