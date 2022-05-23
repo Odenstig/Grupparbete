@@ -31,7 +31,11 @@ const AuctionList = ({ list, setRequestData }) => {
     };
 
     const handleUpdateClick = (auction) => {
-        let budUrl = "http://nackowskis.azurewebsites.net/api/bud/2400/" + auction.auktionID;
+        if (auction.användarID !== localStorage.getItem('user-id')) {
+            alert("Det här är inte din!");
+            return;
+        }
+        let budUrl = "https://nackowskiapiapi20220519103545.azurewebsites.net/api/bid";
         fetch(budUrl)
             .then(res => res.json())
             .then(data => {
@@ -77,6 +81,10 @@ const AuctionList = ({ list, setRequestData }) => {
             });
     };
     const removeAuction = async (auction) => {
+        if (auction.användarID !== localStorage.getItem('user-id')) {
+            alert("Det här är inte din!");
+            return;
+        }
 
         let budUrl = "https://nackowskiapiapi20220519103545.azurewebsites.net/api/bid/" + auction.auktionID;
         await fetch(budUrl)
@@ -104,6 +112,7 @@ const AuctionList = ({ list, setRequestData }) => {
 
     const updateAuction = async (auction) => {
 
+
         let updatedAuction = {
             "AuktionID": auction.auktionID,
             "Titel": title.current.value,
@@ -115,7 +124,7 @@ const AuctionList = ({ list, setRequestData }) => {
             "SkapadAv": name.current.value
         }
 
-        let budUrl = "http://nackowskis.azurewebsites.net/api/bud/2400/" + auction.auktionID;
+        let budUrl = "https://nackowskiapiapi20220519103545.azurewebsites.net/api/bid/" + auction.auktionID;
         await fetch(budUrl)
             .then(res => res.json())
             .then(data => {
@@ -125,7 +134,7 @@ const AuctionList = ({ list, setRequestData }) => {
             })
             .then(() => setRequestData(dayjs()));
 
-        let url = "http://nackowskis.azurewebsites.net/api/Auktion/2400/" + auction.auktionID;
+        let url = "https://nackowskiapiapi20220519103545.azurewebsites.net/api/auktion/" + auction.auktionID;
 
         await fetch(url, {
             method: 'PUT',
@@ -155,7 +164,10 @@ const AuctionList = ({ list, setRequestData }) => {
 
 
     const addBid = async () => {
-
+        if (!localStorage.getItem('user-id')) {
+            alert("Du måste vara inloggad för att buda!");
+            return;
+        }
         if ((bids.length > 0 && bidSum.current.value <= bids[0].summa) || (bidSum.current.value < auction.utropspris)) {
             alert("Du kan inte bjuda under nuvarande bud")
             return;
