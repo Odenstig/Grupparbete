@@ -18,29 +18,29 @@ const AuctionContainer = () => {
 
         const getData = async () => {
             await fetch(url)
-            .then(res => res.json())
-            .then(data => {
+                .then(res => res.json())
+                .then(data => {
 
-                let filteredData = data.filter(x => dayjs(x.slutDatum).format("YYYY-MM-DD HH:mm") > dayjs().format("YYYY-MM-DD HH:mm"));
+                    let filteredData = data.filter(x => dayjs(x.slutDatum).format("YYYY-MM-DD HH:mm") > dayjs().format("YYYY-MM-DD HH:mm"));
 
-                setAuctionList(filteredData);
-                setLoaderState(false);
-            })
+                    setAuctionList(filteredData);
+                    setLoaderState(false);
+                })
         }
         getData();
-        
+
     }, [requestData]);
 
     const search = async (searchparam) => {
 
 
-        let url = "https://localhost:7203/api/auction"
+        let url = "https://nackowskiapiapi20220519103545.azurewebsites.net/api/auction/"
 
         await fetch(url)
             .then(response => response.json())
             .then(data => {
 
-                let list = data.filter(x => x.Titel.toLowerCase().includes(searchparam.toLowerCase()));
+                let list = data.filter(x => x.titel.toLowerCase().includes(searchparam.toLowerCase()));
                 let array = [];
                 list.forEach(element => {
                     array.push(element);
@@ -53,20 +53,20 @@ const AuctionContainer = () => {
     };
 
 
-    useEffect(()=>{
+    useEffect(() => {
 
         const token = localStorage.getItem('id-token');
-        if(token){
+        if (token) {
             setIsExpired(true);
         }
 
 
 
-    },[])
+    }, [])
 
     return (
         <>
-      <Navigation isExpired={setIsExpired} />
+            <Navigation isExpired={setIsExpired} />
             {!loader ? <Container className='p-0'>
                 <Row className="justify-content-md-center mx-auto">
                     <Col xs={10} md={12}>

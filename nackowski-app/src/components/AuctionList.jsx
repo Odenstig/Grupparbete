@@ -5,7 +5,7 @@ import Auction from './Auction';
 import { Button, Form, FormControl, FormGroup, Modal, ModalBody, ModalFooter, Row, Col } from 'react-bootstrap';
 
 
-const AuctionList = ({ list, setRequestData}) => {
+const AuctionList = ({ list, setRequestData }) => {
 
     const [showDetail, setShowDetail] = useState(false);
     const [showUpdate, setShowUpdate] = useState(false);
@@ -52,21 +52,33 @@ const AuctionList = ({ list, setRequestData}) => {
         setAuction(auction);
         setShowDetail(true);
 
-        let url = "http://nackowskis.azurewebsites.net/api/bud/2400/" + auction.auktionID;
+        let url = "https://nackowskiapiapi20220519103545.azurewebsites.net/api/bid/" + auction.auktionID;
 
         fetch(url)
             .then(response => response.json())
             .then(data => {
-                setBids(data.reverse());
-                let list = data.map(bid => {
-                    return (<li>{bid.budgivare} - {bid.summa}kr</li>)
-                });
-                setBidsLi(list);
+                if (Array.isArray(data)) {
+                    setBids(data.reverse());
+                    let list = data.map(bid => {
+                        return (<li>{bid.användare} - {bid.summa}kr</li>)
+                    });
+                    setBidsLi(list);
+                }
+                else {
+                    let dataArr = [data];
+                    setBids(dataArr);
+                    let list = dataArr.map(bid => {
+                        return (<li>{bid.användare} - {bid.summa}kr</li>)
+                    });
+                    setBidsLi(list);
+
+                }
+
             });
     };
     const removeAuction = async (auction) => {
 
-        let budUrl = "http://nackowskis.azurewebsites.net/api/bud/2400/" + auction.auktionID;
+        let budUrl = "https://nackowskiapiapi20220519103545.azurewebsites.net/api/bid/" + auction.auktionID;
         await fetch(budUrl)
             .then(res => res.json())
             .then(data => {
@@ -76,7 +88,7 @@ const AuctionList = ({ list, setRequestData}) => {
             })
 
 
-        let url = "http://nackowskis.azurewebsites.net/api/Auktion/2400/" + auction.auktionID;
+        let url = "https://nackowskiapiapi20220519103545.azurewebsites.net/api/auction/" + auction.auktionID;
 
         await fetch(url, {
             method: 'DELETE',
@@ -127,13 +139,13 @@ const AuctionList = ({ list, setRequestData}) => {
             .then((data) => {
                 console.log('Request success: ', 'posten uppdaterad', data);
                 console.log(data)
-                
+
                 setRequestData(dayjs());
                 closeUpdateModal();
             })
 
 
-        
+
 
 
 
@@ -149,11 +161,12 @@ const AuctionList = ({ list, setRequestData}) => {
             return;
         };
 
-        let url = "http://nackowskis.azurewebsites.net/api/bud/2400";
+        // let url = "https://localhost:7203/api/bid/";
+        let url = "https://nackowskiapiapi20220519103545.azurewebsites.net/api/bid/";
         let bid = {
             "Summa": bidSum.current.value,
             "AuktionID": auction.auktionID,
-            "Budgivare": bidName.current.value
+            "AnvändarId": localStorage.getItem("user-id")
         };
 
         await fetch(url, {
@@ -225,15 +238,11 @@ const AuctionList = ({ list, setRequestData}) => {
                 <ModalFooter>
                     <FormGroup>
                         <Row>
-                        <Col>
-                            {auction.aktiv === "Aktiv" && <FormControl type="text" placeholder="Namn" ref={bidName} autoFocus required />}
-
+                            <Col>
+                                {auction.aktiv === "Aktiv" && <FormControl type="text" placeholder="Pris" ref={bidSum} required />}
                             </Col>
                             <Col>
-                            {auction.aktiv === "Aktiv" && <FormControl type="text" placeholder="Pris" ref={bidSum} required />}
-                            </Col>
-                            <Col>
-                            {auction.aktiv === "Aktiv" &&<Button className='btn btn-dark' onClick={addBid}>Lägg Bud</Button>}
+                                {auction.aktiv === "Aktiv" && <Button className='btn btn-dark' onClick={addBid}>Lägg Bud</Button>}
                             </Col>
                         </Row>
 
