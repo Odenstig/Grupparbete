@@ -41,7 +41,7 @@ const Auction = ({ auction, endDate, handleClick, removeAuction, handleUpdateCli
           <Card.Text style={mid} >{auction.beskrivning}</Card.Text>
         </Card.Body>
         <Card.Footer>
-          <Card.Text>{auction.UserID}<span style={right}>{auction.aktiv}</span></Card.Text>
+          <Card.Text>{auction.skapadAv}<span style={right}>{auction.aktiv}</span></Card.Text>
         </Card.Footer>
         <div className='container-md-3'>
           <Button style={btn} className='btn btn-dark' onClick={() => handleClick(auction)} >Detaljer</Button>

@@ -31,7 +31,7 @@ const AuctionList = ({ list, setRequestData}) => {
     };
 
     const handleUpdateClick = (auction) => {
-        let budUrl = "http://nackowskis.azurewebsites.net/api/bud/2400/" + auction.AuktionID;
+        let budUrl = "http://nackowskis.azurewebsites.net/api/bud/2400/" + auction.auktionID;
         fetch(budUrl)
             .then(res => res.json())
             .then(data => {
@@ -52,21 +52,21 @@ const AuctionList = ({ list, setRequestData}) => {
         setAuction(auction);
         setShowDetail(true);
 
-        let url = "http://nackowskis.azurewebsites.net/api/bud/2400/" + auction.AuktionID;
+        let url = "http://nackowskis.azurewebsites.net/api/bud/2400/" + auction.auktionID;
 
         fetch(url)
             .then(response => response.json())
             .then(data => {
                 setBids(data.reverse());
                 let list = data.map(bid => {
-                    return (<li>{bid.Budgivare} - {bid.Summa}kr</li>)
+                    return (<li>{bid.budgivare} - {bid.summa}kr</li>)
                 });
                 setBidsLi(list);
             });
     };
     const removeAuction = async (auction) => {
 
-        let budUrl = "http://nackowskis.azurewebsites.net/api/bud/2400/" + auction.AuktionID;
+        let budUrl = "http://nackowskis.azurewebsites.net/api/bud/2400/" + auction.auktionID;
         await fetch(budUrl)
             .then(res => res.json())
             .then(data => {
@@ -76,7 +76,7 @@ const AuctionList = ({ list, setRequestData}) => {
             })
 
 
-        let url = "http://nackowskis.azurewebsites.net/api/Auktion/2400/" + auction.AuktionID;
+        let url = "http://nackowskis.azurewebsites.net/api/Auktion/2400/" + auction.auktionID;
 
         await fetch(url, {
             method: 'DELETE',
@@ -93,7 +93,7 @@ const AuctionList = ({ list, setRequestData}) => {
     const updateAuction = async (auction) => {
 
         let updatedAuction = {
-            "AuktionID": auction.AuktionID,
+            "AuktionID": auction.auktionID,
             "Titel": title.current.value,
             "Beskrivning": description.current.value,
             "StartDatum": auction.StartDatum,
@@ -103,7 +103,7 @@ const AuctionList = ({ list, setRequestData}) => {
             "SkapadAv": name.current.value
         }
 
-        let budUrl = "http://nackowskis.azurewebsites.net/api/bud/2400/" + auction.AuktionID;
+        let budUrl = "http://nackowskis.azurewebsites.net/api/bud/2400/" + auction.auktionID;
         await fetch(budUrl)
             .then(res => res.json())
             .then(data => {
@@ -113,7 +113,7 @@ const AuctionList = ({ list, setRequestData}) => {
             })
             .then(() => setRequestData(dayjs()));
 
-        let url = "http://nackowskis.azurewebsites.net/api/Auktion/2400/" + auction.AuktionID;
+        let url = "http://nackowskis.azurewebsites.net/api/Auktion/2400/" + auction.auktionID;
 
         await fetch(url, {
             method: 'PUT',
@@ -144,7 +144,7 @@ const AuctionList = ({ list, setRequestData}) => {
 
     const addBid = async () => {
 
-        if ((bids.length > 0 && bidSum.current.value <= bids[0].Summa) || (bidSum.current.value < auction.Utropspris)) {
+        if ((bids.length > 0 && bidSum.current.value <= bids[0].summa) || (bidSum.current.value < auction.utropspris)) {
             alert("Du kan inte bjuda under nuvarande bud")
             return;
         };
@@ -152,7 +152,7 @@ const AuctionList = ({ list, setRequestData}) => {
         let url = "http://nackowskis.azurewebsites.net/api/bud/2400";
         let bid = {
             "Summa": bidSum.current.value,
-            "AuktionID": auction.AuktionID,
+            "AuktionID": auction.auktionID,
             "Budgivare": bidName.current.value
         };
 
@@ -174,12 +174,12 @@ const AuctionList = ({ list, setRequestData}) => {
 
 
     list = list.sort((a, b) => {
-        return (dayjs(b.SlutDatum).isAfter(dayjs(a.SlutDatum)) ? 1 : -1);
+        return (dayjs(b.slutDatum).isAfter(dayjs(a.slutDatum)) ? 1 : -1);
     });
 
     let auctionList = list.map(auction => {
-        let endDate = dayjs(auction.SlutDatum).format("YYYY-MM-DD HH:mm")
-        let slutDatum = dayjs(auction.SlutDatum).format("YYYY-MM-DD HH:mm");
+        let endDate = dayjs(auction.slutDatum).format("YYYY-MM-DD HH:mm")
+        let slutDatum = dayjs(auction.slutDatum).format("YYYY-MM-DD HH:mm");
         let currentDate = dayjs().format("YYYY-MM-DD HH:mm");;
         auction.aktiv = "Aktiv";
 
@@ -188,7 +188,7 @@ const AuctionList = ({ list, setRequestData}) => {
         };
 
         return (
-            <Auction key={auction.AuktionID} auction={auction} endDate={endDate} handleClick={handleClick}
+            <Auction key={auction.auktionID} auction={auction} endDate={endDate} handleClick={handleClick}
                 removeAuction={removeAuction} handleUpdateClick={handleUpdateClick} />
         );
     });
@@ -205,7 +205,7 @@ const AuctionList = ({ list, setRequestData}) => {
                             </h3>
                         </Col>
                         <Col md={3}>
-                            {bids.length > 0 ? <h3>{bids[0].Summa}kr</h3> : <h3>{auction.Utropspris}kr</h3>}
+                            {bids.length > 0 ? <h3>{bids[0].summa}kr</h3> : <h3>{auction.utropspris}kr</h3>}
                         </Col>
                     </Row>
 
@@ -214,7 +214,7 @@ const AuctionList = ({ list, setRequestData}) => {
                 <ModalBody>
                     <Row>
                         <Col>
-                            {auction.Beskrivning}
+                            {auction.beskrivning}
                         </Col>
                         <Col>
                             {auction.aktiv === "Aktiv" ? <ul>{bidsLi}</ul> : <ul>{bidsLi[0]}</ul>}
@@ -269,18 +269,18 @@ const AuctionList = ({ list, setRequestData}) => {
                     <Row>
                         <Col>
                             <Form.Label>Pris</Form.Label>
-                            <Form.Control placeholder='Pris' ref={price} defaultValue={auction.Utropspris} />
+                            <Form.Control placeholder='Pris' ref={price} defaultValue={auction.utropspris} />
                         </Col>
                         <Col>
                             <Form.Label>Skapare</Form.Label>
-                            <Form.Control placeholder='Skapare' ref={name} defaultValue={auction.SkapadAv} />
+                            <Form.Control placeholder='Skapare' ref={name} defaultValue={auction.skapadAv} />
                         </Col>
                     </Row>
                     <br />
                     <Row>
                         <Col>
                             <Form.Label>Slutdatum</Form.Label>
-                            <Form.Control type="date" defaultValue={dayjs(auction.SlutDatum).format("YYYY-MM-DD")} ref={endDate} />
+                            <Form.Control type="date" defaultValue={dayjs(auction.slutDatum).format("YYYY-MM-DD")} ref={endDate} />
                         </Col>
                     </Row>
 
