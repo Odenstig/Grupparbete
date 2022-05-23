@@ -45,8 +45,8 @@ const Auction = ({ auction, endDate, handleClick, removeAuction, handleUpdateCli
         </Card.Footer>
         <div className='container-md-3'>
           <Button style={btn} className='btn btn-dark' onClick={() => handleClick(auction)} >Detaljer</Button>
-          {auction.aktiv === "Aktiv" && <Button style={btn} className='btn btn-dark' onClick={() => removeAuction(auction)} >Ta bort</Button>}
-          {auction.aktiv === "Aktiv" && <Button style={btn} className='btn btn-dark' onClick={() => handleUpdateClick(auction)} >Uppdatera</Button>}
+          {(auction.aktiv === "Aktiv" && auction.användarID === localStorage.getItem('user-id')) && <Button style={btn} className='btn btn-dark' onClick={() => removeAuction(auction)} >Ta bort</Button>}
+          {(auction.aktiv === "Aktiv" && auction.användarID === localStorage.getItem('user-id')) && <Button style={btn} className='btn btn-dark' onClick={() => handleUpdateClick(auction)} >Uppdatera</Button>}
         </div>
       </Card>
     </div >
