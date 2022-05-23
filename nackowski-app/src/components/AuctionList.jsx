@@ -57,11 +57,23 @@ const AuctionList = ({ list, setRequestData }) => {
         fetch(url)
             .then(response => response.json())
             .then(data => {
-                setBids(data.reverse());
-                let list = data.map(bid => {
-                    return (<li>{bid.budgivare} - {bid.summa}kr</li>)
-                });
-                setBidsLi(list);
+                if (Array.isArray(data)) {
+                    setBids(data.reverse());
+                    let list = data.map(bid => {
+                        return (<li>{bid.användare} - {bid.summa}kr</li>)
+                    });
+                    setBidsLi(list);
+                }
+                else {
+                    let dataArr = [data];
+                    setBids(dataArr);
+                    let list = dataArr.map(bid => {
+                        return (<li>{bid.användare} - {bid.summa}kr</li>)
+                    });
+                    setBidsLi(list);
+
+                }
+
             });
     };
     const removeAuction = async (auction) => {
@@ -149,7 +161,8 @@ const AuctionList = ({ list, setRequestData }) => {
             return;
         };
 
-        let url = "https://localhost:7203/api/bid/";
+        // let url = "https://localhost:7203/api/bid/";
+        let url = "https://nackowskiapiapi20220519103545.azurewebsites.net/api/bid/";
         let bid = {
             "Summa": bidSum.current.value,
             "AuktionID": auction.auktionID,
@@ -225,10 +238,6 @@ const AuctionList = ({ list, setRequestData }) => {
                 <ModalFooter>
                     <FormGroup>
                         <Row>
-                            <Col>
-                                {auction.aktiv === "Aktiv" && <FormControl type="text" placeholder="Namn" ref={bidName} autoFocus required />}
-
-                            </Col>
                             <Col>
                                 {auction.aktiv === "Aktiv" && <FormControl type="text" placeholder="Pris" ref={bidSum} required />}
                             </Col>
