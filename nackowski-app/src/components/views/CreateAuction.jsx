@@ -4,6 +4,7 @@ import { Button, Container } from 'react-bootstrap'
 import Form from 'react-bootstrap/Form'
 import { useNavigate } from 'react-router-dom';
 import './styles/FormStyle.css';
+import Navigation from '../navigation/Navigation';
 
 const CreateAuction = () => {
   const title = useRef();
@@ -15,7 +16,7 @@ const CreateAuction = () => {
 
   let dateNow = dayjs();
 
-  const postAuction = (e) => {
+  const postAuction = async () => {
     let auction = {
       "Titel": title.current.value,
       "Beskrivning": description.current.value,
@@ -26,9 +27,16 @@ const CreateAuction = () => {
       "SkapadAv": name.current.value,
     }
 
-    let url = "http://nackowskis.azurewebsites.net/api/Auktion/2400";
+    let url = "https://localhost:7203/api/auction";
 
-    fetch(url, {
+//     var isExpired = false;
+//     const token = localStorage.getItem('id_token');
+//     var decodedToken=jwt.decode(token, {complete: true});
+//     var dateNow = new Date();
+
+// if(decodedToken.exp < dateNow.getTime())
+    // isExpired = true;
+    await fetch(url, {
       method: 'POST',
       body: JSON.stringify(auction),
       headers: {
@@ -43,7 +51,8 @@ const CreateAuction = () => {
     navigate('/');
   }
 
-  return (
+  return (<>
+    <Navigation/>
     <Container className='formContainer'>
       <Form id="form">
 
@@ -72,6 +81,7 @@ const CreateAuction = () => {
       </Form>
 
     </Container >
+    </>
   );
 };
 

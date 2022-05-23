@@ -1,11 +1,9 @@
 import React from 'react';
 
-const BidList = ({list}) => {
-    
+const BidList = ({list}) => {    
 
         console.log(list)
-        let bidlist = list.map(bid => {
-            
+        let bidlist = list.map(bid => {            
             
             return (
                 <li>{bid.Summa} - {bid.Budgivare}</li>

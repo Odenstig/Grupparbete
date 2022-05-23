@@ -3,7 +3,7 @@ import AuctionContainer from '../../containers/AuctionContainer';
 
 const Home = () => {
   return (
-    <AuctionContainer/>
+    <AuctionContainer />
   );
 };
 
