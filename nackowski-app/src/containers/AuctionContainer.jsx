@@ -5,7 +5,6 @@ import { Container, Row, Col } from 'react-bootstrap'
 import dayjs from 'dayjs';
 import Navigation from '../components/navigation/Navigation';
 
-
 const AuctionContainer = () => {
 
     const [auctionList, setAuctionList] = useState([]);
@@ -45,13 +44,10 @@ const AuctionContainer = () => {
                 list.forEach(element => {
                     array.push(element);
                 });
-
                 setAuctionList(array);
                 setLoaderState(false);
             });
-
     };
-
 
     useEffect(() => {
 
@@ -59,9 +55,6 @@ const AuctionContainer = () => {
         if (token) {
             setIsExpired(true);
         }
-
-
-
     }, [])
 
     return (
@@ -73,7 +66,6 @@ const AuctionContainer = () => {
                         <Search callback={search} />
                         <AuctionList list={auctionList} setRequestData={setRequestData} />
                     </Col>
-
                 </Row>
             </Container> : <div className='text-center p-4'><h3>Loading...</h3></div>}
         </>

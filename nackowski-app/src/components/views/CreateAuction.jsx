@@ -28,13 +28,6 @@ const CreateAuction = () => {
 
     let url = "https://localhost:7203/api/auction";
 
-//     var isExpired = false;
-//     const token = localStorage.getItem('id_token');
-//     var decodedToken=jwt.decode(token, {complete: true});
-//     var dateNow = new Date();
-
-// if(decodedToken.exp < dateNow.getTime())
-    // isExpired = true;
     await fetch(url, {
       method: 'POST',
       body: JSON.stringify(auction),
@@ -75,7 +68,6 @@ const CreateAuction = () => {
         <Button onClick={postAuction} className='btn btn-dark float-end'>Skapa auktion</Button>
 
       </Form>
-
     </Container >
     </>
   );

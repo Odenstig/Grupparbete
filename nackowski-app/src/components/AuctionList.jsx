@@ -15,7 +15,6 @@ const AuctionList = ({ list, setRequestData }) => {
     const bidName = useRef();
     const bidSum = useRef();
 
-
     const title = useRef();
     const price = useRef();
     const name = useRef();
@@ -30,23 +29,20 @@ const AuctionList = ({ list, setRequestData }) => {
         setShowUpdate(false);
     };
 
-    const handleUpdateClick = (auction) => {
-        let budUrl = "https://localhost:7203/api/auction";
-        fetch(budUrl)
+    const handleUpdateClick =  (auction) => {
+        let budUrl = "https://nackowskiapiapi20220519103545.azurewebsites.net/api/bid/" + auction.auktionID;
+         fetch(budUrl)
             .then(res => res.json())
             .then(data => {
                 if (data.length) {
                     alert("Det går inte att uppdatera auktioner med bud.")
-
                 }
                 else {
                     setShowUpdate(true);
                     setAuction(auction);
                 }
             });
-
     }
-
 
     const handleClick = (auction) => {
         setAuction(auction);
@@ -71,11 +67,10 @@ const AuctionList = ({ list, setRequestData }) => {
                         return (<li>{bid.användare} - {bid.summa}kr</li>)
                     });
                     setBidsLi(list);
-
                 }
-
             });
     };
+
     const removeAuction = async (auction) => {
 
         let budUrl = "https://nackowskiapiapi20220519103545.azurewebsites.net/api/bid/" + auction.auktionID;
@@ -87,13 +82,13 @@ const AuctionList = ({ list, setRequestData }) => {
                 };
             })
 
-
-        let url = "https://nackowskiapiapi20220519103545.azurewebsites.net/api/auction/" + auction.auktionID;
+        let url = "https://nackowskiapiapi20220519103545.azurewebsites.net/api/auction/";
 
         await fetch(url, {
             method: 'DELETE',
             body: JSON.stringify(auction),
             headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('id-token'),
                 'Accept': 'application/json, text/plain, */*',
                 'Content-Type': 'application/json'
             }
@@ -108,14 +103,12 @@ const AuctionList = ({ list, setRequestData }) => {
             "AuktionID": auction.auktionID,
             "Titel": title.current.value,
             "Beskrivning": description.current.value,
-            "StartDatum": auction.StartDatum,
-            "SlutDatum": endDate.current.value,
-            "Gruppkod": 2400,
             "Utropspris": price.current.value,
-            "SkapadAv": name.current.value
+            "SkapadAv": name.current.value,
+            "AnvändarID" : localStorage.getItem('user-id')
         }
 
-        let budUrl = "http://nackowskis.azurewebsites.net/api/bud/2400/" + auction.auktionID;
+        let budUrl = "https://nackowskiapiapi20220519103545.azurewebsites.net/api/bid/" + auction.auktionID;
         await fetch(budUrl)
             .then(res => res.json())
             .then(data => {
@@ -125,17 +118,17 @@ const AuctionList = ({ list, setRequestData }) => {
             })
             .then(() => setRequestData(dayjs()));
 
-        let url = "http://nackowskis.azurewebsites.net/api/Auktion/2400/" + auction.auktionID;
+        let url = "https://nackowskiapiapi20220519103545.azurewebsites.net/api/auction/";
 
         await fetch(url, {
             method: 'PUT',
             body: JSON.stringify(updatedAuction),
             headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('id-token'),
                 'Accept': 'application/json, text/plain, */*',
                 'Content-Type': 'application/json'
             }
         })
-            // .then(response => {response.json(); console.log(response)})
             .then((data) => {
                 console.log('Request success: ', 'posten uppdaterad', data);
                 console.log(data)
@@ -143,16 +136,7 @@ const AuctionList = ({ list, setRequestData }) => {
                 setRequestData(dayjs());
                 closeUpdateModal();
             })
-
-
-
-
-
-
-
-
     };
-
 
     const addBid = async () => {
 
@@ -184,8 +168,6 @@ const AuctionList = ({ list, setRequestData }) => {
             .catch(err => console.log(err));
     };
 
-
-
     list = list.sort((a, b) => {
         return (dayjs(b.slutDatum).isAfter(dayjs(a.slutDatum)) ? 1 : -1);
     });
@@ -214,14 +196,13 @@ const AuctionList = ({ list, setRequestData }) => {
                     <Row className="justify-content-between">
                         <Col md={9}>
                             <h3>
-                                {auction.Titel}
+                                {auction.titel}
                             </h3>
                         </Col>
                         <Col md={3}>
                             {bids.length > 0 ? <h3>{bids[0].summa}kr</h3> : <h3>{auction.utropspris}kr</h3>}
                         </Col>
                     </Row>
-
 
                 </Modal.Header>
                 <ModalBody>
@@ -250,10 +231,7 @@ const AuctionList = ({ list, setRequestData }) => {
                 </ModalFooter>
             </Modal>
 
-
-
             {/* UPDATE MODAL  */}
-
             <Modal show={showUpdate} onHide={closeUpdateModal} size="lg">
                 <Modal.Header closeButton>
                     <h3>
@@ -298,8 +276,6 @@ const AuctionList = ({ list, setRequestData }) => {
                     <Button className="btn btn-dark" onClick={() => updateAuction(auction)}>Uppdatera</Button>
                 </ModalFooter>
             </Modal>
-
-
         </div >
     );
 };
