@@ -214,7 +214,7 @@ const AuctionList = ({ list, setRequestData }) => {
                     <Row className="justify-content-between">
                         <Col md={9}>
                             <h3>
-                                {auction.Titel}
+                                {auction.titel}
                             </h3>
                         </Col>
                         <Col md={3}>
@@ -264,14 +264,14 @@ const AuctionList = ({ list, setRequestData }) => {
                     <Row>
                         <Col>
                             <Form.Label>Titel</Form.Label>
-                            <Form.Control placeholder='Titel' ref={title} defaultValue={auction.Titel} />
+                            <Form.Control placeholder='Titel' ref={title} defaultValue={auction.titel} />
                         </Col>
                     </Row>
                     <br />
                     <Row>
                         <Col>
                             <Form.Label>Beskrivning</Form.Label>
-                            <Form.Control as="textarea" placeholder='Beskrivning' rows={4} ref={description} defaultValue={auction.Beskrivning} />
+                            <Form.Control as="textarea" placeholder='Beskrivning' rows={4} ref={description} defaultValue={auction.beskrivning} />
                         </Col>
                     </Row>
                     <br />
