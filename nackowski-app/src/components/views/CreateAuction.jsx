@@ -22,9 +22,9 @@ const CreateAuction = () => {
       "Beskrivning": description.current.value,
       "StartDatum": dateNow,
       "SlutDatum": endDate.current.value,
-      "Gruppkod": 2400,
       "Utropspris": price.current.value,
-      "SkapadAv": name.current.value,
+      "AnvändarID" : localStorage.getItem('user-id')
+      
     }
 
     let url = "https://localhost:7203/api/auction";
@@ -40,6 +40,7 @@ const CreateAuction = () => {
       method: 'POST',
       body: JSON.stringify(auction),
       headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('id-token'),
         'Accept': 'application/json, text/plain, */*',
         'Content-Type': 'application/json'
       }

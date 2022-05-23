@@ -33,7 +33,8 @@ const LoginButton = () => {
       .then(response => response.json())
       .then(data=>{
         localStorage.setItem('id-token', data.token);
-        localStorage.setItem('token-exp',data.expiration)
+        localStorage.setItem('token-exp',data.expiration);
+        localStorage.setItem('user-id',data.userId);
         console.log(data.expiration);
         console.log(data);          
       })
