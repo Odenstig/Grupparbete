@@ -4,9 +4,6 @@ import { Nav, Navbar,Container } from "react-bootstrap";
 
 const Navigation = (isExpired) => {
     
-    // useEffect(()=>{
-
-    
     return (<>
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
         <Container>
@@ -25,8 +22,6 @@ const Navigation = (isExpired) => {
         </Container>
         </Navbar>
     </>)
-    // },[isExpired])
-
 }
 
 export default Navigation;

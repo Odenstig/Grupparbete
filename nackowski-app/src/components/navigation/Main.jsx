@@ -15,7 +15,6 @@ const Main = () => {
         <Route path="/login" element ={<LoginButton/>}/>
       </Routes>
     </>);
-
 };
 
 export default Main;
