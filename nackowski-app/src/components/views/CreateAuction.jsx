@@ -23,8 +23,7 @@ const CreateAuction = () => {
       "StartDatum": dateNow,
       "SlutDatum": endDate.current.value,
       "Utropspris": price.current.value,
-      "AnvändarID" : localStorage.getItem('user-id')
-      
+      "AnvändarID" : localStorage.getItem('user-id')      
     }
 
     let url = "https://localhost:7203/api/auction";
@@ -67,10 +66,6 @@ const CreateAuction = () => {
 
         <Form.Label>Pris</Form.Label>
         <Form.Control placeholder='Pris' ref={price} />
-        <br />
-
-        <Form.Label>Skapare</Form.Label>
-        <Form.Control placeholder='Skapare' ref={name} />
         <br />
 
         <Form.Label>Slutdatum</Form.Label>
