@@ -31,7 +31,7 @@ const AuctionList = ({ list, setRequestData}) => {
     };
 
     const handleUpdateClick = (auction) => {
-        let budUrl = "http://nackowskis.azurewebsites.net/api/bud/2400/" + auction.auktionID;
+        let budUrl = "https://localhost:7203/api/auction";
         fetch(budUrl)
             .then(res => res.json())
             .then(data => {
