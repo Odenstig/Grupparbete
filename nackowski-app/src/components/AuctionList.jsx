@@ -172,34 +172,6 @@ const AuctionList = ({ list, setRequestData}) => {
     };
 
 
-<<<<<<< HEAD
-    const getFinalBid = (bud) => {
-
-
-        let url = "http://nackowskis.azurewebsites.net/api/bud/2400/" + bud;
-
-        let bud1;
-        fetch(url).then(response => response.json())
-        .then(data => {
-            
-            bud1 = data[0].Summa
-
-            data.forEach(sum => {
-    
-                if(bud1 < sum.Summa)
-                {
-                    bud1 = sum.Summa;
-                }
-    
-            });
-            
-            console.log(bud1)
-            return bud1;
-        })
-        
-    }
-=======
->>>>>>> 809cdea5468cebbbc676523b3949cee95349c2d8
 
     list = list.sort((a, b) => {
         return (dayjs(b.slutDatum).isAfter(dayjs(a.slutDatum)) ? 1 : -1);
@@ -209,43 +181,15 @@ const AuctionList = ({ list, setRequestData}) => {
         let endDate = dayjs(auction.slutDatum).format("YYYY-MM-DD HH:mm")
         let slutDatum = dayjs(auction.slutDatum).format("YYYY-MM-DD HH:mm");
         let currentDate = dayjs().format("YYYY-MM-DD HH:mm");;
-<<<<<<< HEAD
-        let aktiv = "Aktiv";
-        let lastBid = getFinalBid(auction.AuktionID)
-=======
         auction.aktiv = "Aktiv";
->>>>>>> 809cdea5468cebbbc676523b3949cee95349c2d8
 
         if (currentDate > slutDatum) {
             auction.aktiv = "Inaktiv";
         };
 
         return (
-<<<<<<< HEAD
-            <div className="container-md-2" >
-
-                <Card style={card}>
-                    <Card.Header>
-                        <Card.Title>{auction.Titel}<span style={right}>{endDate}</span> </Card.Title>
-                    </Card.Header>
-                    <Card.Body>
-                        <div className='card-price'>
-                        <Card.Text >Utropspris:   {lastBid}:-</Card.Text>
-                        </div>
-                        <Card.Text style={mid} >{auction.Beskrivning}</Card.Text>
-                    </Card.Body>
-                    <Card.Footer>
-                        <Card.Text>{auction.SkapadAv}<span style={right}>{aktiv}</span></Card.Text>
-                    </Card.Footer>
-
-                    <Button className='btn btn-dark' onClick={() => handleClick(auction)} >Mer</Button>
-                </Card>
-
-            </div >
-=======
             <Auction key={auction.auktionID} auction={auction} endDate={endDate} handleClick={handleClick}
                 removeAuction={removeAuction} handleUpdateClick={handleUpdateClick} />
->>>>>>> 809cdea5468cebbbc676523b3949cee95349c2d8
         );
     });
 
